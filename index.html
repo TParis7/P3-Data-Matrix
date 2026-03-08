@@ -546,29 +546,29 @@
     <!-- ── SECTION 1: USER DEMOGRAPHICS              ── -->
     <!-- ══════════════════════════════════════════════ -->
     <div class="section-title">User Demographics</div>
-    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">High-level breakdown of mentee and mentor profiles — sourced from Retool / AppSync user records</div>
+    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">High-level breakdown of mentee and mentor profiles — sourced from Amplitude user properties (live data)</div>
 
     <!-- Demographic KPI Highlights -->
     <div class="kpi-row">
         <div class="kpi-card" style="border-left: 4px solid var(--p3-crimson);">
             <div class="kpi-label">Top Mentee Education</div>
-            <div class="kpi-value">High School</div>
-            <div class="kpi-sub neutral">41% of 844 mentees</div>
+            <div class="kpi-value">Doctorate / PhD</div>
+            <div class="kpi-sub neutral">264 of 685 mentees with data</div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-blue);">
             <div class="kpi-label">Top Guidance Sought</div>
-            <div class="kpi-value">Career</div>
-            <div class="kpi-sub neutral">45% of mentees seeking</div>
+            <div class="kpi-value">Career Guidance</div>
+            <div class="kpi-sub neutral">565 active users — top need</div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-green);">
             <div class="kpi-label">Most Common Meet</div>
-            <div class="kpi-value">Bi-Weekly</div>
-            <div class="kpi-sub neutral">33% of active pairings</div>
+            <div class="kpi-value">Once a Month</div>
+            <div class="kpi-sub neutral">285 users — 42% of respondents</div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-amber);">
             <div class="kpi-label">Top Mentor Industry</div>
-            <div class="kpi-value">Healthcare</div>
-            <div class="kpi-sub neutral">20% of 157 mentors</div>
+            <div class="kpi-value">Business</div>
+            <div class="kpi-sub neutral">53 mentors — top industry</div>
         </div>
     </div>
 
@@ -576,12 +576,12 @@
         <div class="chart-card">
             <h3>Education Level — Mentees vs. Mentors</h3>
             <canvas id="uaEducation" height="220"></canvas>
-            <div class="chart-source">Retool · Education Level field</div>
+            <div class="chart-source">Amplitude · User Properties</div>
         </div>
         <div class="chart-card">
             <h3>Guidance Types Sought by Mentees</h3>
             <canvas id="uaSeeking" height="220"></canvas>
-            <div class="chart-source">Retool · Seeking field (multi-select)</div>
+            <div class="chart-source">Amplitude · MenteeProfileNeeds</div>
         </div>
     </div>
 
@@ -589,12 +589,12 @@
         <div class="chart-card">
             <h3>Preferred Meet Frequency</h3>
             <canvas id="uaMeetFreq" height="220"></canvas>
-            <div class="chart-source">Retool · Meet Frequency field</div>
+            <div class="chart-source">Amplitude · MenteeProfileFrequency</div>
         </div>
         <div class="chart-card">
             <h3>Mentor Industries</h3>
             <canvas id="uaMentorIndustry" height="220"></canvas>
-            <div class="chart-source">Retool · Mentor profile — Industry field</div>
+            <div class="chart-source">Amplitude · MentorProfileIndustry</div>
         </div>
     </div>
 
@@ -602,12 +602,12 @@
         <div class="chart-card">
             <h3>Mentor Strengths / Expertise Areas</h3>
             <canvas id="uaMentorStrengths" height="220"></canvas>
-            <div class="chart-source">Retool · Mentor profile — Strengths field</div>
+            <div class="chart-source">Amplitude · MentorProfileCoachingStrengths</div>
         </div>
         <div class="chart-card">
             <h3>Top 10 Mentees — Most Questions Posted</h3>
             <canvas id="uaTopMenteesByQuestions" height="220"></canvas>
-            <div class="chart-source">Retool · Question post activity</div>
+            <div class="chart-source">Amplitude · QuestionAction events</div>
         </div>
     </div>
 
@@ -615,12 +615,12 @@
         <div class="chart-card">
             <h3>Top 10 Mentors — Most Mentees Paired</h3>
             <canvas id="uaTopMentorsByMentees" height="220"></canvas>
-            <div class="chart-source">Retool · Mentor pairing count</div>
+            <div class="chart-source">Amplitude · MentorshipAction (Approved)</div>
         </div>
         <div class="chart-card">
-            <h3>Top 10 Mentors — Most Videos Uploaded</h3>
+            <h3>Top 10 Mentors — Most Videos Uploaded <span style="font-size:9px; background:#f39c12; color:white; padding:1px 6px; border-radius:8px; margin-left:4px;">AWAITING DATA</span></h3>
             <canvas id="uaTopMentorsByVideos" height="220"></canvas>
-            <div class="chart-source">Retool · Video upload activity</div>
+            <div class="chart-source">Retool · Awaiting R-1 query (no upload event in Amplitude)</div>
         </div>
     </div>
 
@@ -628,37 +628,37 @@
 
     <!-- Demographic Insights -->
     <div class="insight-box" style="background: linear-gradient(135deg, #f8faf0, #f0f7e8); border-left-color: var(--p3-green);">
-        <strong>📊 Demographic Insight:</strong> The mentee population skews young — <strong>41% are high school students</strong> and another 26% have some college experience. This aligns with P3's mission of early-career intervention. Meanwhile, <strong>57% of mentors hold a Master's or Doctoral degree</strong>, creating a strong knowledge asymmetry that powers meaningful mentorship. The most-requested guidance is <strong>Career (45%)</strong> followed by Academic Support (34%), suggesting P3 should continue emphasizing career pathway content in the app.
+        <strong>📊 Demographic Insight:</strong> The active user base is highly educated — <strong>Doctorate/PhD is the top mentee education level (264 users)</strong>, followed by Bachelor's (148) and Master's (139). Among mentors, <strong>Bachelor's (39) and Doctorate (36)</strong> lead. The most-requested guidance is <strong>Career Guidance (565 users)</strong> followed by Networking (456) and Educational Guidance (395), confirming P3 should continue emphasizing career pathway content and networking opportunities in the app.
     </div>
 
     <div class="insight-box" style="background: linear-gradient(135deg, #f0f4ff, #e8eeff); border-left-color: var(--p3-blue);">
-        <strong>🎯 Engagement Insight:</strong> The top mentors are carrying significant load — the #1 mentor has <strong>12 active mentees</strong>, while the top 10 average 7.5 each. On the content side, the top video creators are publishing 6–14 videos each, building a growing content library. Mentees are also engaging: the top 10 question-posters have asked 5–11 questions each, indicating genuine curiosity. The bi-weekly meet preference (33%) suggests P3 can optimize push notifications and reminders around that cadence.
+        <strong>🎯 Engagement Insight:</strong> Mentorship pairing approvals are led by <strong>Max Madhere (17)</strong> and <strong>Thomas Paris (11)</strong>. Mentee engagement in Q&A is growing: <strong>Jimiah Campbell leads with 6 questions asked</strong>, with 35+ mentees posting at least one question. The most common meeting preference is <strong>"Once a Month" (285 users, 42%)</strong>, suggesting P3 should optimize nudges and reminders around that cadence. Twice-a-month (180) and weekly (125) follow.
     </div>
 
     <!-- ══════════════════════════════════════════════ -->
     <!-- ── SECTION 2: TOP 5 ORGANIZATIONS            ── -->
     <!-- ══════════════════════════════════════════════ -->
     <div class="section-title" style="margin-top:28px;">Top 5 Organizations</div>
-    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">Breakdown by institution affiliation — based on Organization Selections from Amplitude + Retool user profiles</div>
+    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">Breakdown by institution affiliation — based on OrganizationSelected events from Amplitude (live data)</div>
 
     <!-- Org KPI Cards -->
     <div class="kpi-row">
         <div class="kpi-card" style="border-left: 4px solid var(--p3-crimson); flex:1;">
             <div class="kpi-label">🏫 Chicago Public Schools</div>
-            <div class="kpi-value">24</div>
-            <div class="kpi-sub up">11 this week — highest surge</div>
+            <div class="kpi-value">29</div>
+            <div class="kpi-sub up">12 in most recent week — surging</div>
             <div class="kpi-target">Potential licensing partner</div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-blue); flex:1;">
             <div class="kpi-label">🎓 Chicago State Univ.</div>
             <div class="kpi-value">22</div>
-            <div class="kpi-sub neutral">Cohort spike in Jan 2026</div>
+            <div class="kpi-sub neutral">14-user cohort spike in Jan 2026</div>
             <div class="kpi-target">HBCU partner</div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-green); flex:1;">
             <div class="kpi-label">🤝 100 Black Men</div>
-            <div class="kpi-value">10</div>
-            <div class="kpi-sub neutral">Consistent mentor pipeline</div>
+            <div class="kpi-value">9</div>
+            <div class="kpi-sub neutral">Consistent community pipeline</div>
             <div class="kpi-target">Community org partner</div>
         </div>
     </div>
@@ -666,20 +666,20 @@
     <div class="kpi-row">
         <div class="kpi-card" style="border-left: 4px solid var(--p3-amber); flex:1;">
             <div class="kpi-label">🎓 Xavier University</div>
-            <div class="kpi-value">7</div>
-            <div class="kpi-sub neutral">3 new this week</div>
+            <div class="kpi-value">5</div>
+            <div class="kpi-sub neutral">3 in most recent week</div>
             <div class="kpi-target">HBCU partner</div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-purple); flex:1;">
-            <div class="kpi-label">🏢 P3 Direct / Other</div>
-            <div class="kpi-value">93</div>
-            <div class="kpi-sub neutral">Organic sign-ups</div>
+            <div class="kpi-label">🏢 Other / Unaffiliated</div>
+            <div class="kpi-value">57</div>
+            <div class="kpi-sub neutral">Organic sign-ups (Q1 2026)</div>
             <div class="kpi-target">No institutional affiliation</div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid #ccc; flex:1;">
             <div class="kpi-label">📊 Institutional Rate</div>
-            <div class="kpi-value">40%</div>
-            <div class="kpi-sub up">63 of 156 org selections</div>
+            <div class="kpi-value">49%</div>
+            <div class="kpi-sub up">65 of 134 org selections (Q1)</div>
             <div class="kpi-target">Org-affiliated vs. organic</div>
         </div>
     </div>
@@ -698,47 +698,47 @@
     </div>
 
     <div class="insight-box" style="background: linear-gradient(135deg, #f0f4ff, #e8eeff); border-left-color: var(--p3-blue);">
-        <strong>🏫 Organization Insight:</strong> <strong>Chicago Public Schools (CPS)</strong> is the fastest-growing partner with <strong>24 total selections</strong> — including a 11-selection surge this week, the largest single-week spike for any partner. CPS now leads Chicago State Univ. (22) and could become P3's first institutional licensing deal. <strong>100 Black Men</strong> (10) and <strong>Xavier Univ.</strong> (7) are steady community/HBCU pipelines. Notably, <strong>40% of all org selections</strong> come from named institutions — a strong signal that partner-driven onboarding is working. The remaining 60% are organic/direct, representing untapped potential for institutional conversion.
+        <strong>🏫 Organization Insight:</strong> <strong>Chicago Public Schools (CPS)</strong> is the fastest-growing partner with <strong>29 selections in Q1 2026</strong> — including a 12-selection surge in the most recent week. CPS now leads Chicago State (22) and could become P3's first institutional licensing deal. <strong>100 Black Men</strong> (9) and <strong>Xavier Univ.</strong> (5) are steady community/HBCU pipelines. Notably, <strong>49% of all Q1 org selections</strong> come from named institutions — a strong signal that partner-driven onboarding is working.
     </div>
 
     <div class="insight-box" style="background: linear-gradient(135deg, #fff8f0, #ffeed8); border-left-color: var(--p3-amber);">
-        <strong>🎯 Strategic Takeaway:</strong> Three patterns stand out: (1) CPS and Chicago State show <strong>burst enrollment</strong> — likely cohort-driven events that P3 should schedule proactively; (2) 100 Black Men provides a <strong>steady mentor feed</strong> ideal for pairing campaigns; (3) Xavier's uptick this week (3 new) could signal a new cohort opportunity to pursue. For the Partner Dashboard Ph1 launch in May, these top 5 organizations should be the initial pilot partners with analytics access.
+        <strong>🎯 Strategic Takeaway:</strong> Three patterns stand out: (1) CPS and Chicago State show <strong>burst enrollment</strong> — likely cohort-driven events that P3 should schedule proactively; (2) 100 Black Men provides a <strong>steady community pipeline</strong> ideal for pairing campaigns; (3) Xavier's most recent week (3 new selections) could signal a new cohort opportunity. For the Partner Dashboard Ph1 launch in May, these top organizations should be the initial pilot partners with analytics access.
     </div>
 
     <!-- ══════════════════════════════════════════════ -->
     <!-- ── SECTION 3: TOP 5 MENTEE PARTNERS          ── -->
     <!-- ══════════════════════════════════════════════ -->
     <div class="section-title" style="margin-top:28px;">Top 5 Mentee Partners</div>
-    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">Organizations ranked by number of mentees attached — with demographic breakdowns per partner</div>
+    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">Organizations ranked by active users — with demographic breakdowns per partner (Amplitude live data)</div>
 
     <!-- Mentee Partner KPI Cards -->
     <div class="kpi-row">
         <div class="kpi-card" style="border-left: 4px solid var(--p3-crimson); flex:1;">
             <div class="kpi-label">🏫 Chicago Public Schools</div>
-            <div class="kpi-value">142 mentees</div>
-            <div class="kpi-sub neutral">87% high school · 68% seek career</div>
+            <div class="kpi-value">34 active users</div>
+            <div class="kpi-sub neutral">Top need: Career guidance (23)</div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-blue); flex:1;">
             <div class="kpi-label">🎓 Chicago State Univ.</div>
-            <div class="kpi-value">118 mentees</div>
-            <div class="kpi-sub neutral">62% some college · 54% seek academic</div>
+            <div class="kpi-value">26 active users</div>
+            <div class="kpi-sub neutral">Top need: Career guidance (22)</div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-green); flex:1;">
             <div class="kpi-label">🤝 100 Black Men</div>
-            <div class="kpi-value">96 mentees</div>
-            <div class="kpi-sub neutral">48% high school · 51% seek career</div>
+            <div class="kpi-value">40 active users</div>
+            <div class="kpi-sub neutral">Top need: Career guidance (19)</div>
         </div>
     </div>
     <div class="kpi-row">
         <div class="kpi-card" style="border-left: 4px solid var(--p3-amber); flex:1;">
             <div class="kpi-label">🎓 Xavier University</div>
-            <div class="kpi-value">74 mentees</div>
-            <div class="kpi-sub neutral">71% some college · 47% seek prof. dev.</div>
+            <div class="kpi-value">46 active users</div>
+            <div class="kpi-sub neutral">Top need: Networking (37)</div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-purple); flex:1;">
-            <div class="kpi-label">🏢 P3 Direct / Other</div>
-            <div class="kpi-value">414 mentees</div>
-            <div class="kpi-sub neutral">Organic — mixed demographics</div>
+            <div class="kpi-label">🏢 Other / Unaffiliated</div>
+            <div class="kpi-value">242 active users</div>
+            <div class="kpi-sub neutral">Top need: Career guidance (184)</div>
         </div>
     </div>
 
@@ -746,12 +746,12 @@
         <div class="chart-card">
             <h3>Mentees by Partner Organization</h3>
             <canvas id="uaMenteePartnerBar" height="220"></canvas>
-            <div class="chart-source">Retool · Mentee count by Organization</div>
+            <div class="chart-source">Amplitude · Users by Organization</div>
         </div>
         <div class="chart-card">
             <h3>Education Level by Partner</h3>
             <canvas id="uaMenteePartnerEdu" height="220"></canvas>
-            <div class="chart-source">Retool · Education Level × Organization</div>
+            <div class="chart-source">Amplitude · Education × Organization</div>
         </div>
     </div>
 
@@ -759,25 +759,25 @@
         <div class="chart-card">
             <h3>Top Guidance Sought by Partner</h3>
             <canvas id="uaMenteePartnerSeeking" height="220"></canvas>
-            <div class="chart-source">Retool · Seeking field × Organization</div>
+            <div class="chart-source">Amplitude · Needs × Organization</div>
         </div>
         <div class="chart-card">
             <h3>Meet Frequency by Partner</h3>
             <canvas id="uaMenteePartnerMeet" height="220"></canvas>
-            <div class="chart-source">Retool · Meet Frequency × Organization</div>
+            <div class="chart-source">Amplitude · Frequency × Organization</div>
         </div>
     </div>
 
     <div class="insight-box" style="background: linear-gradient(135deg, #faf0f8, #f5e8f3); border-left-color: var(--p3-purple);">
-        <strong>👥 Mentee Partner Insight:</strong> <strong>CPS leads with 142 mentees</strong> (17% of all mentees), skewing heavily toward high school students seeking career guidance — a natural fit for P3's early-intervention model. <strong>Chicago State</strong> (118) brings a college-age cohort focused on academic support, while <strong>100 Black Men</strong> (96) delivers a diverse mix from their community programs. <strong>Xavier</strong> (74) indexes high on professional development, reflecting its university-level audience. These 4 institutional partners account for <strong>430 mentees (51%)</strong> of the total base — validation that partner-driven growth is P3's highest-leverage channel.
+        <strong>👥 Mentee Partner Insight:</strong> <strong>Other/Unaffiliated users (242)</strong> remain the largest segment, representing organic growth. Among institutional partners, <strong>Xavier leads with 46 active users</strong>, followed by 100 Black Men (40), CPS (34), and Chicago State (26). CPS users predominantly seek career guidance (23), while Xavier users prioritize networking (37). These 4 institutional partners account for <strong>146 active users (38%)</strong> of the affiliated base — validation that partner-driven growth is a key channel for P3.
     </div>
 
     <div class="insight-box" style="background: linear-gradient(135deg, #f8faf0, #f0f7e8); border-left-color: var(--p3-green);">
-        <strong>📈 Partner Growth Opportunity:</strong> The 414 mentees in the "P3 Direct" bucket represent <strong>organic sign-ups without institutional ties</strong> — the largest single segment. Mining this group for institution affiliation could reveal hidden partner opportunities. Additionally, the education-level data shows CPS and 100 Black Men serve predominantly <strong>high school students</strong>, while Chicago State and Xavier serve <strong>college-level learners</strong>. This natural segmentation supports tailored content tracks and partner-specific outcome dashboards for the Ph1 launch.
+        <strong>📈 Partner Growth Opportunity:</strong> The 242 users in the "Other/Unaffiliated" bucket represent <strong>organic sign-ups without institutional ties</strong> — the largest segment. Mining this group for institution affiliation could reveal hidden partner opportunities. The education data shows a surprising pattern: <strong>Doctorate/PhD is the top education level across most orgs</strong>, including Xavier (27) and 100 Black Men (11). CPS has the most users without education data set (24), suggesting a profile-completion campaign opportunity for that partner.
     </div>
 
     <div class="insight-box" style="background:#f0f4ff; border-left-color: var(--p3-blue);">
-        <strong>🔗 Data Note:</strong> Demographics data is sourced from Retool user profile fields (Education Level, Seeking, Meet Frequency, Organization). Top mentor/mentee rankings are based on pairing counts and in-app activity. Data refreshes weekly via the P3 Metrics API webhook every Monday at 8 AM. To expand these breakdowns, additional Retool queries can be added to the workflow.
+        <strong>🔗 Data Note:</strong> Demographics sourced from Amplitude user properties (MenteeProfileEducation, MenteeProfileNeeds, MenteeProfileFrequency, MentorProfileIndustry, MentorProfileCoachingStrengths, Organization). Leaderboards sourced from Amplitude events (QuestionAction, MentorshipAction). Video upload chart awaiting Retool R-1 query. Data refreshes weekly every Monday at 8 AM.
     </div>
 
     </div><!-- end tab-admin -->
@@ -1284,10 +1284,10 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaEducation'), {
         type: 'bar',
         data: {
-            labels: ['High School', 'Some College', "Associate's", "Bachelor's", "Master's", 'Doctoral'],
+            labels: ['High School / GED', 'Some College / Assoc.', 'Not Sure / Other', "Bachelor's", "Master's", 'Doctorate / PhD', 'Trade Cert.'],
             datasets: [
-                { label: 'Mentees', data: [346, 219, 76, 131, 55, 17], backgroundColor: UA_COLORS.crimson, borderRadius: 4, barPercentage: 0.7 },
-                { label: 'Mentors', data: [0, 10, 12, 45, 55, 35], backgroundColor: UA_COLORS.blue, borderRadius: 4, barPercentage: 0.7 }
+                { label: 'Mentees', data: [14, 20, 97, 148, 139, 264, 3], backgroundColor: UA_COLORS.crimson, borderRadius: 4, barPercentage: 0.7 },
+                { label: 'Mentors', data: [8, 11, 1, 39, 30, 36, 1], backgroundColor: UA_COLORS.blue, borderRadius: 4, barPercentage: 0.7 }
             ]
         },
         options: {
@@ -1301,17 +1301,17 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaSeeking'), {
         type: 'bar',
         data: {
-            labels: ['Career Guidance', 'Academic Support', 'Prof. Development', 'Networking', 'Industry Insights', 'Leadership'],
+            labels: ['Career Guidance', 'Networking', 'Educational Guidance', 'Personal Growth', 'Long-term Goals', 'Motivation', 'Social Feedback', 'Short-term Goals', 'College Apps', 'Friendship'],
             datasets: [{
                 label: 'Mentees seeking',
-                data: [380, 287, 245, 178, 152, 118],
-                backgroundColor: [UA_COLORS.crimson, UA_COLORS.blue, UA_COLORS.green, UA_COLORS.amber, UA_COLORS.purple, UA_COLORS.dark],
-                borderRadius: 4, barThickness: 22
+                data: [565, 456, 395, 366, 299, 276, 183, 155, 146, 140],
+                backgroundColor: [UA_COLORS.crimson, UA_COLORS.blue, UA_COLORS.green, UA_COLORS.amber, UA_COLORS.purple, UA_COLORS.dark, '#85c1e9', '#82e0aa', '#f5b7b1', '#d5dbdb'],
+                borderRadius: 4, barThickness: 16
             }]
         },
         options: {
             indexAxis: 'y', responsive: true,
-            plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.raw + ' mentees (' + Math.round(c.raw/844*100) + '%)'; } } } },
+            plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.raw + ' mentees'; } } } },
             scales: { x: { beginAtZero: true, grid: UA_GRID, ticks: { font: UA_FONT_SM } }, y: { grid: UA_NO_GRID, ticks: { font: UA_FONT_SM } } }
         }
     });
@@ -1320,17 +1320,17 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaMeetFreq'), {
         type: 'bar',
         data: {
-            labels: ['Weekly', 'Bi-Weekly', 'Monthly', 'As Needed'],
+            labels: ['Once a Month', 'Twice a Month', 'Once a Week', 'All the Time'],
             datasets: [{
-                label: 'Pairings',
-                data: [178, 282, 248, 136],
+                label: 'Users',
+                data: [285, 180, 125, 96],
                 backgroundColor: [UA_COLORS.crimson, UA_COLORS.blue, UA_COLORS.green, UA_COLORS.amber],
                 borderRadius: 4
             }]
         },
         options: {
             responsive: true,
-            plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.raw + ' pairings (' + Math.round(c.raw/844*100) + '%)'; } } } },
+            plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.raw + ' users'; } } } },
             scales: { y: { beginAtZero: true, grid: UA_GRID, ticks: { font: UA_FONT_SM } }, x: { grid: UA_NO_GRID, ticks: { font: UA_FONT_MD } } }
         }
     });
@@ -1339,17 +1339,17 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaMentorIndustry'), {
         type: 'bar',
         data: {
-            labels: ['Healthcare', 'Education', 'Finance', 'Technology', 'Law', 'Business', 'Engineering', 'Nonprofit', 'Media'],
+            labels: ['Business', 'Health & Medicine', 'Technology', 'Education / Academia', 'Community & Social Svcs', 'Athletics', 'Science & Research', 'Communications', 'Arts & Entertainment', 'Government'],
             datasets: [{
                 label: 'Mentors',
-                data: [32, 28, 22, 20, 15, 14, 12, 8, 6],
+                data: [53, 44, 38, 34, 26, 25, 24, 20, 18, 18],
                 backgroundColor: UA_COLORS.blue,
-                borderRadius: 4, barThickness: 18
+                borderRadius: 4, barThickness: 16
             }]
         },
         options: {
             indexAxis: 'y', responsive: true,
-            plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.raw + ' mentors (' + Math.round(c.raw/157*100) + '%)'; } } } },
+            plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.raw + ' mentors'; } } } },
             scales: { x: { beginAtZero: true, grid: UA_GRID, ticks: { font: UA_FONT_SM } }, y: { grid: UA_NO_GRID, ticks: { font: UA_FONT_SM } } }
         }
     });
@@ -1358,12 +1358,12 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaMentorStrengths'), {
         type: 'bar',
         data: {
-            labels: ['Career Transitions', 'Leadership', 'Academic Excellence', 'Networking', 'Technical Skills', 'Entrepreneurship', 'Communication', 'Financial Literacy'],
+            labels: ['Motivation', 'Career Guidance', 'Personal Growth', 'Life / Social Feedback', 'Networking', 'Long-term Goals', 'Educational Guidance', 'Short-term Goals', 'Friendship', 'College Apps'],
             datasets: [{
                 label: 'Mentors',
-                data: [38, 32, 25, 22, 18, 14, 10, 8],
+                data: [94, 92, 87, 84, 72, 70, 67, 61, 48, 44],
                 backgroundColor: UA_COLORS.green,
-                borderRadius: 4, barThickness: 18
+                borderRadius: 4, barThickness: 16
             }]
         },
         options: {
@@ -1377,10 +1377,10 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaTopMentorsByMentees'), {
         type: 'bar',
         data: {
-            labels: ['Dr. Aisha K.', 'Marcus T.', 'Dr. Renee W.', 'James D.', 'Angela F.', 'Dr. Kofi M.', 'Patricia S.', 'DeAndre J.', 'Dr. Lisa C.', 'Robert N.'],
+            labels: ['Max Madhere', 'Thomas Paris', 'Pierre Johnson', 'Orelia Lawdins Trent', 'Branden Weber', 'Mike Coleman', 'Brittnee Lett', 'Dr. Jason Hayes', 'Kennedy Green', 'Khris Fields'],
             datasets: [{
-                label: 'Active mentees',
-                data: [12, 10, 9, 9, 8, 7, 7, 6, 6, 5],
+                label: 'Pairings approved',
+                data: [17, 11, 5, 3, 3, 2, 1, 1, 1, 1],
                 backgroundColor: UA_COLORS.crimson,
                 borderRadius: 4, barThickness: 18
             }]
@@ -1415,10 +1415,10 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaTopMenteesByQuestions'), {
         type: 'bar',
         data: {
-            labels: ['Travon P.', 'Jasmine H.', 'DeShawn M.', 'Aaliyah R.', 'Marcus W.', 'Keyana T.', 'Jordan B.', 'Imani S.', 'Elijah D.', 'Brianna C.'],
+            labels: ['Jimiah Campbell', 'Malcolm Taylor', "La'Darrius Irvin", 'Chayson Burdis', 'Christopher Calep', 'Faithe Buckner', 'Grace Bitrus', 'Kaelynn Charles', 'Shamon Thompson', "Ta'Rhya Williams"],
             datasets: [{
-                label: 'Questions posted',
-                data: [11, 9, 8, 8, 7, 7, 6, 6, 5, 5],
+                label: 'Questions asked',
+                data: [6, 4, 3, 2, 2, 2, 2, 2, 2, 2],
                 backgroundColor: UA_COLORS.purple,
                 borderRadius: 4, barThickness: 18
             }]
@@ -1438,31 +1438,31 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaOrgBar'), {
         type: 'bar',
         data: {
-            labels: ['Chicago Public Schools', 'Chicago State Univ.', '100 Black Men', 'Xavier Univ.', 'P3 Direct / Other'],
+            labels: ['Chicago Public Schools (CPS)', 'Chicago State University', '100 Black Men', 'Xavier Univ. of Louisiana', 'Pulse of Perseverance', 'Other / Unaffiliated'],
             datasets: [{
-                data: [24, 22, 10, 7, 93],
-                backgroundColor: [UA_COLORS.crimson, UA_COLORS.blue, UA_COLORS.green, UA_COLORS.amber, UA_COLORS.lightGray],
-                borderRadius: 4, barThickness: 24
+                data: [29, 22, 9, 5, 12, 57],
+                backgroundColor: [UA_COLORS.crimson, UA_COLORS.blue, UA_COLORS.green, UA_COLORS.amber, UA_COLORS.purple, UA_COLORS.lightGray],
+                borderRadius: 4, barThickness: 20
             }]
         },
         options: {
             indexAxis: 'y', responsive: true,
-            plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.raw + ' selections (13-week total)'; } } } },
+            plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.raw + ' selections (last 13 weeks)'; } } } },
             scales: { x: { beginAtZero: true, grid: UA_GRID, ticks: { font: UA_FONT_SM } }, y: { grid: UA_NO_GRID, ticks: { font: UA_FONT_SM, weight: '500' } } }
         }
     });
 
     // ── 10. Weekly Org Trend (line) ──
-    var trendWeeks = ['Dec 7','Dec 14','Dec 21','Dec 28','Jan 4','Jan 11','Jan 18','Jan 25','Feb 1','Feb 8','Feb 15','Feb 22','Mar 1'];
+    var trendWeeks = ['Dec 1','Dec 8','Dec 15','Dec 22','Dec 29','Jan 5','Jan 12','Jan 19','Jan 26','Feb 2','Feb 9','Feb 16','Feb 23','Mar 2'];
     new Chart(document.getElementById('uaOrgTrend'), {
         type: 'line',
         data: {
             labels: trendWeeks,
             datasets: [
-                { label: 'CPS', data: [0,0,0,0,0,1,0,1,3,2,3,3,11], borderColor: UA_COLORS.crimson, fill: false, tension: 0.3, pointStyle: 'rectRounded', pointRadius: 3 },
-                { label: 'Chicago State', data: [0,0,0,0,0,0,0,14,5,3,0,0,0], borderColor: UA_COLORS.blue, fill: false, tension: 0.3, pointStyle: 'rectRounded', pointRadius: 3 },
-                { label: '100 Black Men', data: [0,0,0,0,1,6,0,0,1,0,0,1,0], borderColor: UA_COLORS.green, fill: false, tension: 0.3, pointStyle: 'rectRounded', pointRadius: 3 },
-                { label: 'Xavier', data: [1,0,0,0,0,1,0,1,0,0,0,0,3], borderColor: UA_COLORS.amber, fill: false, tension: 0.3, pointStyle: 'rectRounded', pointRadius: 3 }
+                { label: 'CPS', data: [1,0,0,0,0,0,1,0,1,7,2,3,3,12], borderColor: UA_COLORS.crimson, fill: false, tension: 0.3, pointStyle: 'rectRounded', pointRadius: 3 },
+                { label: 'Chicago State', data: [0,0,0,0,0,0,0,0,14,5,3,0,0,0], borderColor: UA_COLORS.blue, fill: false, tension: 0.3, pointStyle: 'rectRounded', pointRadius: 3 },
+                { label: '100 Black Men', data: [1,0,0,0,0,1,6,0,0,1,0,0,1,0], borderColor: UA_COLORS.green, fill: false, tension: 0.3, pointStyle: 'rectRounded', pointRadius: 3 },
+                { label: 'Xavier', data: [1,1,0,0,0,0,1,0,1,0,0,0,0,3], borderColor: UA_COLORS.amber, fill: false, tension: 0.3, pointStyle: 'rectRounded', pointRadius: 3 }
             ]
         },
         options: {
@@ -1483,17 +1483,17 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaMenteePartnerBar'), {
         type: 'bar',
         data: {
-            labels: ['Chicago Public Schools', 'Chicago State Univ.', '100 Black Men', 'Xavier Univ.', 'P3 Direct / Other'],
+            labels: ['Other / Unaffiliated', 'Xavier Univ. of Louisiana', '100 Black Men', 'Chicago Public Schools (CPS)', 'Chicago State University', 'Pulse of Perseverance'],
             datasets: [{
-                label: 'Mentees',
-                data: [142, 118, 96, 74, 414],
-                backgroundColor: [UA_COLORS.crimson, UA_COLORS.blue, UA_COLORS.green, UA_COLORS.amber, UA_COLORS.lightGray],
-                borderRadius: 4, barThickness: 24
+                label: 'Active users',
+                data: [242, 46, 40, 34, 26, 21],
+                backgroundColor: [UA_COLORS.lightGray, UA_COLORS.amber, UA_COLORS.green, UA_COLORS.crimson, UA_COLORS.blue, UA_COLORS.purple],
+                borderRadius: 4, barThickness: 20
             }]
         },
         options: {
             indexAxis: 'y', responsive: true,
-            plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.raw + ' mentees (' + Math.round(c.raw/844*100) + '%)'; } } } },
+            plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.raw + ' mentees'; } } } },
             scales: { x: { beginAtZero: true, grid: UA_GRID, ticks: { font: UA_FONT_SM } }, y: { grid: UA_NO_GRID, ticks: { font: UA_FONT_SM, weight: '500' } } }
         }
     });
@@ -1502,11 +1502,12 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaMenteePartnerEdu'), {
         type: 'bar',
         data: {
-            labels: partnerNames,
+            labels: ['CPS', 'Chicago State', '100 Black Men', 'Xavier', 'Other'],
             datasets: [
-                { label: 'High School', data: [124, 28, 46, 12, 136], backgroundColor: UA_COLORS.crimson, borderRadius: 2 },
-                { label: 'Some College', data: [10, 73, 26, 53, 57], backgroundColor: UA_COLORS.blue, borderRadius: 2 },
-                { label: "Associate's+", data: [8, 17, 24, 9, 221], backgroundColor: UA_COLORS.green, borderRadius: 2 }
+                { label: 'Doctorate / PhD', data: [4, 9, 11, 27, 67], backgroundColor: UA_COLORS.crimson, borderRadius: 2 },
+                { label: "Bachelor's", data: [12, 8, 5, 5, 42], backgroundColor: UA_COLORS.blue, borderRadius: 2 },
+                { label: "Master's", data: [9, 7, 3, 8, 37], backgroundColor: UA_COLORS.green, borderRadius: 2 },
+                { label: 'Other / Not Set', data: [29, 22, 29, 10, 132], backgroundColor: UA_COLORS.lightGray, borderRadius: 2 }
             ]
         },
         options: {
@@ -1520,11 +1521,11 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaMenteePartnerSeeking'), {
         type: 'bar',
         data: {
-            labels: partnerNames,
+            labels: ['CPS', 'Chicago State', '100 Black Men', 'Xavier', 'Other'],
             datasets: [
-                { label: 'Career', data: [97, 42, 49, 25, 167], backgroundColor: UA_COLORS.crimson, borderRadius: 2 },
-                { label: 'Academic', data: [28, 64, 22, 18, 155], backgroundColor: UA_COLORS.blue, borderRadius: 2 },
-                { label: 'Prof. Dev.', data: [17, 12, 25, 31, 92], backgroundColor: UA_COLORS.green, borderRadius: 2 }
+                { label: 'Career Guidance', data: [23, 22, 19, 35, 184], backgroundColor: UA_COLORS.crimson, borderRadius: 2 },
+                { label: 'Networking', data: [19, 21, 17, 37, 120], backgroundColor: UA_COLORS.blue, borderRadius: 2 },
+                { label: 'Educational Guidance', data: [19, 12, 11, 32, 97], backgroundColor: UA_COLORS.green, borderRadius: 2 }
             ]
         },
         options: {
@@ -1538,12 +1539,12 @@ function buildUserAnalyticsCharts() {
     new Chart(document.getElementById('uaMenteePartnerMeet'), {
         type: 'bar',
         data: {
-            labels: partnerNames,
+            labels: ['CPS', 'Chicago State', '100 Black Men', 'Xavier', 'Other'],
             datasets: [
-                { label: 'Weekly', data: [32, 24, 22, 15, 85], backgroundColor: UA_COLORS.crimson, borderRadius: 2 },
-                { label: 'Bi-Weekly', data: [48, 42, 30, 28, 134], backgroundColor: UA_COLORS.blue, borderRadius: 2 },
-                { label: 'Monthly', data: [38, 32, 28, 20, 130], backgroundColor: UA_COLORS.green, borderRadius: 2 },
-                { label: 'As Needed', data: [24, 20, 16, 11, 65], backgroundColor: UA_COLORS.amber, borderRadius: 2 }
+                { label: 'Once a Month', data: [16, 6, 8, 9, 116], backgroundColor: UA_COLORS.crimson, borderRadius: 2 },
+                { label: 'Twice a Month', data: [3, 8, 6, 15, 46], backgroundColor: UA_COLORS.blue, borderRadius: 2 },
+                { label: 'Once a Week', data: [6, 7, 2, 11, 34], backgroundColor: UA_COLORS.green, borderRadius: 2 },
+                { label: 'All the Time', data: [7, 6, 6, 6, 24], backgroundColor: UA_COLORS.amber, borderRadius: 2 }
             ]
         },
         options: {
