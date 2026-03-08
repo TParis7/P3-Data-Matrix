@@ -23,7 +23,7 @@
         /* ── Header ── */
         .header {
             background: var(--p3-dark);
-            color: white; border-radius: 16px; padding: 28px 32px; margin-bottom: 24px;
+            color: white; border-radius: 16px; padding: 28px 32px; margin-bottom: 8px;
             position: relative; overflow: hidden;
         }
         .header::before {
@@ -114,32 +114,215 @@
         .footer-logo { height: 20px; opacity: 0.35; }
         .footer a { color: var(--p3-crimson); text-decoration: none; }
 
+
+        /* ── V2: Collapsible Sections ── */
+        .section-header {
+            display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; user-select: none; padding: 4px 0;
+        }
+        .section-header:hover .collapse-icon { color: var(--p3-crimson); }
+        .collapse-icon {
+            font-size: 18px; color: #aaa; transition: transform 0.25s, color 0.2s;
+            width: 24px; text-align: center; flex-shrink: 0;
+        }
+        .section-header.collapsed .collapse-icon { transform: rotate(-90deg); }
+        .section-body { }
+        .section-body.collapsed { display: none; }
+
+
+        .chart-card.search-hidden, .kpi-card.search-hidden, .insight-box.search-hidden,
+        .kpi-row.search-hidden, .chart-grid.search-hidden, .partner-callout.search-hidden,
+        .crm-status-grid.search-hidden, .pipeline-card.search-hidden, .alert-banner.search-hidden,
+        .section-title.search-hidden, .section-header.search-hidden, .section-body.search-hidden { display: none !important; }
+        .chart-card.search-highlight { box-shadow: 0 0 0 2px var(--p3-crimson), 0 4px 12px rgba(217,58,58,0.15) !important; }
+        .search-no-results {
+            text-align: center; padding: 60px 20px; color: #888; font-size: 14px; display: none;
+        }
+
+
+
+        /* ── V2: Toolbar (below header) ── */
+        .toolbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 4px 0; margin-bottom: 0;
+        }
+        .toolbar .search-container { position: relative; flex: 1; max-width: 420px; }
+        .toolbar .search-input {
+            width: 100%; background: white; border: 1px solid #ddd;
+            border-radius: 10px; padding: 10px 14px 10px 38px; color: #333;
+            font-size: 13px; outline: none; transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .toolbar .search-input::placeholder { color: #aaa; }
+        .toolbar .search-input:focus { border-color: var(--p3-crimson); box-shadow: 0 0 0 2px rgba(217,58,58,0.1); }
+        .toolbar .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: 0.35; pointer-events: none; }
+        .toolbar .search-clear {
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; color: #aaa; cursor: pointer;
+            font-size: 16px; display: none; padding: 2px 4px;
+        }
+        .toolbar .search-clear:hover { color: #333; }
+        .toolbar-actions { display: flex; gap: 6px; align-items: center; }
+        .toolbar-icon-btn {
+            width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+            background: white; border: 1px solid #ddd; border-radius: 10px; cursor: pointer;
+            color: #666; transition: all 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .toolbar-icon-btn:hover { border-color: var(--p3-crimson); color: var(--p3-crimson); }
+
+        @media print {
+            body { background: white !important; color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .container { max-width: none; padding: 8px; }
+            .header { background: white !important; color: #333 !important; border: 2px solid #333; padding: 14px 20px !important; margin-bottom: 4px !important; border-radius: 8px !important; }
+            .header::before, .header::after { display: none; }
+            .header-text h1 { color: var(--p3-crimson) !important; font-size: 20px !important; }
+            .subtitle { font-size: 11px !important; }
+            .header-logo { height: 32px !important; }
+            .date-badge { background: #f5f5f5 !important; color: #333 !important; border-color: #ccc !important; padding: 6px 12px !important; font-size: 11px !important; }
+            .tab-nav, .toolbar { display: none !important; }
+            .tab-panel { display: block !important; }
+            .tab-panel + .tab-panel { page-break-before: always; }
+            .section-title { font-size: 15px !important; margin-top: 8px !important; }
+            .chart-card, .kpi-card, .partner-callout, .insight-box { break-inside: avoid; box-shadow: none !important; border: 1px solid #ddd !important; margin-bottom: 8px !important; }
+            .chart-card { padding: 12px !important; }
+            .chart-card h3 { font-size: 13px !important; }
+            canvas { max-height: 200px !important; }
+            .kpi-row { gap: 8px !important; }
+            .section-body { display: block !important; }
+            .collapse-icon { display: none !important; }
+            .kpi-value { font-size: 20px !important; }
+            .kpi-card { padding: 10px !important; }
+            .footer { display: none; }
+            .search-no-results { display: none !important; }
+        }
+
+        /* ── V2: Dark Mode ── */
+        body.dark-mode { background: #0d0d1a; color: #e0e0e0; }
+        body.dark-mode .header { background: #111128; }
+        body.dark-mode .kpi-card, body.dark-mode .chart-card, body.dark-mode .pipeline-card,
+        body.dark-mode .crm-status-card {
+            background: #1a1a2e; border-color: rgba(255,255,255,0.06); color: #e0e0e0;
+        }
+        body.dark-mode .kpi-value, body.dark-mode .crm-status-card .val { color: #f0f0f0; }
+        body.dark-mode .kpi-label, body.dark-mode .kpi-target, body.dark-mode .chart-card h3,
+        body.dark-mode .crm-status-card .label { color: #999; }
+        body.dark-mode .kpi-sub.neutral { color: #777; }
+        body.dark-mode .section-title { color: #e07070; border-bottom-color: #a03030; }
+        body.dark-mode .chart-card .chart-source { color: #555; }
+        body.dark-mode .insight-box { background: #141428 !important; border-left-color: #3a6ea5 !important; color: #ccc; }
+        body.dark-mode .insight-box strong { color: #f0f0f0; }
+        body.dark-mode .partner-callout { background: linear-gradient(135deg, #1a1410, #1f1510) !important; border-color: #3a2a10; }
+        body.dark-mode .partner-metric .val { color: #e07070; }
+        body.dark-mode .tab-btn { color: #666; }
+        body.dark-mode .tab-btn:hover { background: rgba(224,112,112,0.08); }
+        body.dark-mode .tab-btn.active { color: #e07070; background: rgba(224,112,112,0.1); }
+        body.dark-mode .tab-btn.active::after { background: #e07070; }
+        body.dark-mode .tab-nav { border-bottom-color: #2a2a3e; }
+        body.dark-mode .alert-banner { background: linear-gradient(135deg, #1a1015, #1f1018) !important; border-color: #3a2020; }
+        body.dark-mode .footer { color: #444; border-top-color: #2a2a3e; }
+        body.dark-mode .toolbar .search-input { background: #1a1a2e; border-color: #2a2a3e; color: #e0e0e0; }
+        body.dark-mode .toolbar .search-input::placeholder { color: #555; }
+        body.dark-mode .toolbar-icon-btn { background: #1a1a2e; border-color: #2a2a3e; color: #888; }
+        body.dark-mode .toolbar-icon-btn:hover { border-color: #e07070; color: #e07070; }
+
+        /* ── Responsive: Tablet (≤900px) ── */
+        @media (max-width: 900px) {
+            .container { padding: 16px; }
+            .header { padding: 22px 24px; }
+            .tab-btn { padding: 10px 18px; font-size: 12px; }
+            .chart-grid { gap: 14px; }
+            .kpi-row { gap: 10px; }
+            .crm-status-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ── Responsive: Mobile (≤700px) ── */
         @media (max-width: 700px) {
-            .chart-grid { grid-template-columns: 1fr; }
-            .header-row { flex-direction: column; gap: 14px; align-items: flex-start; }
-            .header-left { flex-wrap: wrap; }
+            .container { padding: 12px; }
+            .header { padding: 18px 16px; margin-bottom: 6px; border-radius: 12px; }
+            .header-row { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .header-left { flex-wrap: wrap; gap: 12px; }
+            .header-logo { height: 36px; }
+            .header-divider { display: none; }
+            .header-text h1 { font-size: 20px; }
+            .subtitle { font-size: 11px; }
+            .date-badge { font-size: 11px; padding: 6px 12px; align-self: flex-start; }
+
+            .toolbar { flex-direction: column; gap: 6px; align-items: stretch; }
+            .toolbar .search-container { max-width: none; }
+            .toolbar-actions { justify-content: flex-end; }
+
+            .tab-nav { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 0; }
+            .tab-nav::-webkit-scrollbar { display: none; }
+            .tab-btn { padding: 10px 14px; font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+            .tab-btn .tab-icon { font-size: 12px; margin-right: 4px; }
+
+            .chart-grid { grid-template-columns: 1fr; gap: 12px; }
+            .tile-map { max-width: 100%; }
+            .tile-cell { font-size: 7px; }
+            .region-compare-cards { grid-template-columns: 1fr; }
+            .partner-compare-cards { grid-template-columns: 1fr; }
+            .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .kpi-card { padding: 14px; }
+            .kpi-value { font-size: 28px; }
+            .kpi-label { font-size: 10px; }
+
+            .chart-card { padding: 16px; }
+            .chart-card h3 { font-size: 14px; }
+            canvas { max-height: 220px; }
+
+            .crm-status-grid { grid-template-columns: 1fr; gap: 10px; }
+            .crm-status-card { padding: 14px; }
+            .crm-status-card .val { font-size: 26px; }
+
+            .insight-box { padding: 12px 14px; font-size: 12px; }
+            .section-title { font-size: 16px; }
+            .partner-metrics { grid-template-columns: 1fr 1fr; }
+
+            .footer { font-size: 10px; flex-direction: column; gap: 6px; }
+        }
+
+        /* ── Responsive: Small phone (≤420px) ── */
+        @media (max-width: 420px) {
+            .container { padding: 8px; }
+            .header { padding: 14px 12px; border-radius: 10px; }
+            .header-text h1 { font-size: 18px; }
+            .tab-btn { padding: 8px 10px; font-size: 10px; letter-spacing: 0; }
+            .kpi-row { grid-template-columns: 1fr 1fr; gap: 6px; }
+            .kpi-card { padding: 10px; }
+            .kpi-value { font-size: 24px; }
+            .tile-cell { font-size: 6px; }
+            .region-compare-selectors select { min-width: 140px; font-size: 11px; }
+            .partner-compare-selectors select { min-width: 140px; font-size: 11px; }
+            .chart-card { padding: 12px; }
+            .partner-metrics { grid-template-columns: 1fr; }
         }
 
         /* ── Tab Navigation ── */
         .tab-nav {
-            display: flex; gap: 0; margin-bottom: 0; margin-top: 24px;
+            display: flex; gap: 0; margin-bottom: 0; margin-top: 8px;
             border-bottom: 2px solid #e0e0e0;
         }
         .tab-btn {
             padding: 12px 28px; font-size: 13px; font-weight: 600;
             color: #888; background: transparent; border: none;
-            cursor: pointer; position: relative; transition: color 0.2s;
+            cursor: pointer; position: relative; transition: all 0.2s;
             letter-spacing: 0.3px; text-transform: uppercase;
+            display: inline-flex; align-items: center;
         }
-        .tab-btn:hover { color: var(--p3-maroon); }
+        .tab-btn:hover { color: var(--p3-maroon); background: rgba(217,58,58,0.04); border-radius: 8px 8px 0 0; }
         .tab-btn.active {
-            color: var(--p3-crimson); 
+            color: var(--p3-crimson); background: rgba(217,58,58,0.06); border-radius: 8px 8px 0 0;
         }
         .tab-btn.active::after {
             content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
-            height: 2px; background: var(--p3-crimson);
+            height: 3px; background: var(--p3-crimson); border-radius: 2px 2px 0 0;
         }
         .tab-btn .tab-icon { margin-right: 6px; font-size: 14px; }
+        .tab-btn .beta-badge {
+            font-size: 9px; background: #D93A3A; color: white; padding: 2px 6px;
+            border-radius: 8px; margin-left: 5px; font-weight: 600;
+            line-height: 1; vertical-align: middle; display: inline-block;
+        }
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
 
@@ -183,6 +366,265 @@
             font-size: 10px; padding: 3px 10px; border-radius: 20px;
             margin-left: 8px; font-weight: 500; vertical-align: middle;
         }
+
+
+
+        /* ── V2-R3: User Geography Tile Map ── */
+        .geo-map-container { margin-bottom: 24px; }
+        .tile-map {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            gap: 2px;
+            max-width: 580px;
+            margin: 0 auto 16px;
+        }
+        .tile-cell {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.15s, box-shadow 0.15s;
+            min-width: 0;
+        }
+        .tile-cell:hover {
+            transform: scale(1.25);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+            z-index: 10;
+        }
+        .tile-cell.heat-0 { background: #f0f0f0; color: #999; }
+        .tile-cell.heat-1 { background: #f8c4c4; color: #8b1a1a; }
+        .tile-cell.heat-2 { background: #f09090; color: #fff; }
+        .tile-cell.heat-3 { background: #e05050; color: #fff; }
+        .tile-cell.heat-4 { background: #c02020; color: #fff; }
+        .tile-cell.heat-5 { background: #8b0000; color: #fff; }
+        .tile-tooltip {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30,30,30,0.95);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            white-space: nowrap;
+            z-index: 100;
+            pointer-events: none;
+            line-height: 1.5;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+        }
+        .tile-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(30,30,30,0.95);
+        }
+        .tile-cell:hover .tile-tooltip { display: block; }
+        .geo-legend {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 10px;
+            color: #888;
+            margin-bottom: 16px;
+        }
+        .geo-legend-swatch {
+            width: 14px; height: 14px; border-radius: 3px; display: inline-block;
+        }
+
+        /* ── V2-R3: Region Comparison ── */
+
+        /* ── Partner Comparison ── */
+        .partner-compare-container { margin-top: 20px; }
+        .partner-compare-selectors {
+            display: flex; gap: 12px; align-items: center;
+            justify-content: center; margin-bottom: 18px; flex-wrap: wrap;
+        }
+        .partner-compare-selectors select {
+            padding: 8px 14px; border: 2px solid #e0e0e0; border-radius: 8px;
+            font-size: 13px; font-weight: 600; background: white; min-width: 200px;
+            cursor: pointer; transition: border-color 0.2s;
+        }
+        .partner-compare-selectors select:focus { border-color: var(--p3-crimson); outline: none; }
+        .partner-compare-vs {
+            font-weight: 800; font-size: 14px; color: #999; letter-spacing: 2px;
+        }
+        .partner-compare-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .partner-card {
+            background: white; border-radius: 12px; padding: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid #eee;
+        }
+        .partner-card-title {
+            font-size: 16px; font-weight: 800; color: var(--p3-maroon);
+            margin-bottom: 12px; text-align: center;
+        }
+        .partner-card .pc-stat {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px;
+        }
+        .partner-card .pc-stat:last-child { border-bottom: none; }
+        .pc-stat-label { color: #888; font-weight: 500; }
+        .pc-stat-value { font-weight: 700; color: #333; }
+        .pc-stat-value.pc-winner { color: var(--p3-crimson); }
+
+        .region-compare-container { margin-top: 20px; }
+        .region-compare-selectors {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+        .region-compare-selectors select {
+            padding: 8px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            background: white;
+            cursor: pointer;
+            min-width: 180px;
+            transition: border-color 0.2s;
+        }
+        .region-compare-selectors select:focus { border-color: var(--p3-crimson); outline: none; }
+        .region-compare-vs {
+            font-size: 14px; font-weight: 800; color: #ccc; letter-spacing: 1px;
+        }
+        .region-compare-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .region-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+        .region-card-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+        .region-card .rc-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 12px;
+        }
+        .region-card .rc-stat:last-child { border-bottom: none; }
+        .rc-stat-label { color: #888; font-weight: 500; }
+        .rc-stat-value { font-weight: 700; color: #333; }
+        .rc-stat-value.winner { color: var(--p3-crimson); }
+
+
+        /* Dark mode for R3 */
+        body.dark-mode .tile-cell.heat-0 { background: #2a2a2a; color: #666; }
+        body.dark-mode .tile-tooltip { background: rgba(20,20,20,0.96); }
+        body.dark-mode .geo-legend { color: #666; }
+        body.dark-mode .partner-compare-selectors select {
+            background: #1e1e1e; color: #ccc; border-color: #333;
+        }
+        body.dark-mode .partner-card {
+            background: #1e1e1e; border-color: #333;
+        }
+        body.dark-mode .partner-card-title { color: #ddd; }
+        body.dark-mode .partner-card .pc-stat { border-color: #2a2a2a; }
+        body.dark-mode .pc-stat-label { color: #777; }
+        body.dark-mode .pc-stat-value { color: #ccc; }
+        body.dark-mode .region-compare-selectors select {
+            background: #1e1e1e; color: #ccc; border-color: #333;
+        }
+        body.dark-mode .region-card {
+            background: #1e1e1e; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        body.dark-mode .region-card-title { color: #ddd; }
+        body.dark-mode .rc-stat { border-color: #2a2a2a; }
+        body.dark-mode .rc-stat-label { color: #777; }
+        body.dark-mode .rc-stat-value { color: #ccc; }
+
+        /* ── V2-R2: KPI Sparklines ── */
+        .kpi-sparkline {
+            margin-top: 6px; display: flex; align-items: center; justify-content: center;
+        }
+        .kpi-sparkline svg { display: block; }
+
+        /* ── V2-R2: Anomaly Badges ── */
+        .anomaly-badge {
+            display: inline-flex; align-items: center; gap: 3px;
+            font-size: 9px; font-weight: 700; padding: 2px 7px;
+            border-radius: 6px; margin-left: 6px; letter-spacing: 0.3px;
+            vertical-align: middle; line-height: 1;
+        }
+        .anomaly-badge.spike { background: rgba(46,204,113,0.12); color: #1e8449; }
+        .anomaly-badge.drop { background: rgba(217,58,58,0.12); color: #c0392b; }
+        .anomaly-badge.alert { background: rgba(243,156,18,0.12); color: #d68910; }
+        .anomaly-badge .anomaly-dot { width: 5px; height: 5px; border-radius: 50%; }
+        .anomaly-badge.spike .anomaly-dot { background: #2ecc71; }
+        .anomaly-badge.drop .anomaly-dot { background: #D93A3A; }
+        .anomaly-badge.alert .anomaly-dot { background: #f39c12; }
+        body.dark-mode .anomaly-badge.spike { background: rgba(46,204,113,0.18); color: #58d68d; }
+        body.dark-mode .anomaly-badge.drop { background: rgba(217,58,58,0.18); color: #ec7063; }
+        body.dark-mode .anomaly-badge.alert { background: rgba(243,156,18,0.18); color: #f5b041; }
+
+        /* ── V2-R2: Industry Benchmarks ── */
+        .benchmark-toggle-row {
+            display: flex; align-items: center; gap: 8px;
+            margin-bottom: 8px;
+        }
+        .benchmark-toggle {
+            position: relative; width: 32px; height: 18px;
+            background: #ddd; border-radius: 9px; cursor: pointer;
+            transition: background 0.2s; border: none; padding: 0;
+        }
+        .benchmark-toggle.on { background: var(--p3-crimson); }
+        .benchmark-toggle::after {
+            content: ''; position: absolute; top: 2px; left: 2px;
+            width: 14px; height: 14px; background: white;
+            border-radius: 50%; transition: transform 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+        }
+        .benchmark-toggle.on::after { transform: translateX(14px); }
+        .benchmark-toggle-label {
+            font-size: 11px; font-weight: 600; color: #888;
+            letter-spacing: 0.3px;
+        }
+        body.dark-mode .benchmark-toggle { background: #333; }
+        body.dark-mode .benchmark-toggle.on { background: var(--p3-crimson); }
+        body.dark-mode .benchmark-toggle-label { color: #888; }
+
+        /* ── V2-R2: Responsive adjustments ── */
+        @media (max-width: 700px) {
+            .toolbar { flex-wrap: wrap; gap: 6px; }
+        }
+        @media (max-width: 420px) {
+        }
+        @media print {
+            .benchmark-toggle-row { display: none !important; }
+
+            .tile-cell:hover { transform: none; box-shadow: none; }
+            .tile-tooltip { display: none !important; }
+            .partner-compare-container { page-break-inside: avoid; }
+
+        }
+
     </style>
 </head>
 <body>
@@ -207,20 +649,45 @@
 
     </div>
 
+    <!-- ===== TOOLBAR (below header) ===== -->
+    <div class="toolbar">
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="dashSearch" placeholder="Search charts, KPIs, insights…" oninput="searchCharts(this.value)" />
+            <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+        </div>
+        <div class="toolbar-actions">
+            <button class="toolbar-icon-btn" onclick="window.print()" title="Print / Save as PDF">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            </button>
+            <button class="toolbar-icon-btn" id="themeToggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+                <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </button>
+        </div>
+    </div>
+
+
+
+    <div class="search-no-results" id="searchNoResults">
+        <div style="font-size:32px; margin-bottom:8px;">🔍</div>
+        <div>No charts matching "<span id="searchQuery"></span>"</div>
+        <div style="font-size:12px; margin-top:4px; color:#aaa;">Try a different search term</div>
+    </div>
 
     <!-- ===== TAB NAVIGATION ===== -->
     <div class="tab-nav">
         <button class="tab-btn active" onclick="switchTab('amplitude')">
             <span class="tab-icon">📊</span> App Activity
         </button>
-        <button class="tab-btn" onclick="switchTab('intercom')">
-            <span class="tab-icon">💬</span> CRM &amp; Outreach
-        </button>
         <button class="tab-btn" onclick="switchTab('admin')">
             <span class="tab-icon">👥</span> User Analytics
         </button>
+        <button class="tab-btn" onclick="switchTab('intercom')">
+            <span class="tab-icon">💬</span> CRM &amp; Outreach
+        </button>
         <button class="tab-btn" onclick="switchTab('milestone')">
-            <span class="tab-icon">🏆</span> Milestone Data <span style="font-size:9px; background:#D93A3A; color:white; padding:1px 6px; border-radius:8px; margin-left:4px; font-weight:600;">BETA</span>
+            <span class="tab-icon">🏆</span> Milestone Data <span class="beta-badge">BETA</span>
         </button>
     </div>
 
@@ -235,50 +702,71 @@
             <div class="kpi-value">1,001</div>
             <div class="kpi-sub up">✅ Complete dataset</div>
             <div class="kpi-target">Source: Retool / AppSync</div>
+        
+            <div class="kpi-sparkline" data-values="880,895,910,925,940,955,970,985,995,1001" data-color="#D93A3A"></div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-blue);">
             <div class="kpi-label">Total Mentors</div>
             <div class="kpi-value">157</div>
             <div class="kpi-sub neutral">Approved in admin panel</div>
+        
+            <div class="kpi-sparkline" data-values="147,148,149,149,149,151,154,155,156,157" data-color="#3498db"></div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-green);">
             <div class="kpi-label">Estimated Mentees</div>
             <div class="kpi-value">844</div>
             <div class="kpi-sub neutral">Users minus Mentors</div>
+        
+            <div class="kpi-sparkline" data-values="743,746,758,765,790,802,807,815,826,844" data-color="#2ecc71"></div>
         </div>
         <div class="kpi-card" style="border-left: 4px solid var(--p3-amber);">
             <div class="kpi-label">New Users This Week</div>
             <div class="kpi-value">22</div>
             <div class="kpi-sub up">Last 7 days</div>
+        
+            <div class="kpi-sparkline" data-values="8,12,15,18,10,14,20,16,19,22" data-color="#f39c12"></div>
         </div>
     </div>
 
     <!-- ===== SECTION 1: INTERNAL GROWTH ===== -->
     <div class="section-title">Internal Growth Metrics</div>
+    <div class="benchmark-toggle-row" id="benchmarkToggleRow">
+        <button class="benchmark-toggle" id="benchmarkToggle" onclick="toggleBenchmarks()"></button>
+        <span class="benchmark-toggle-label">Show Industry Benchmarks</span>
+    </div>
+
 
     <div class="kpi-row">
         <div class="kpi-card">
             <div class="kpi-label">Weekly Active Users</div>
-            <div class="kpi-value">51</div>
+            <div class="kpi-value">51 <span class="anomaly-badge spike"><span class="anomaly-dot"></span>▲ SPIKE</span></div>
             <div class="kpi-sub up">▲ 89% vs prior week (27)</div>
             <div class="kpi-target">Mentee 42 · Mentor 9</div>
+        
+            <div class="kpi-sparkline" data-values="22,24,19,23,25,49,35,28,42,51" data-color="#D93A3A"></div>
         </div>
         <div class="kpi-card">
             <div class="kpi-label">Avg Session Length</div>
             <div class="kpi-value">91s / 143s</div>
             <div class="kpi-sub neutral">Mentee / Mentor (12-mo avg)</div>
+        
+            <div class="kpi-sparkline" data-values="78,82,85,88,90,87,89,92,91,91" data-color="#3498db"></div>
         </div>
         <div class="kpi-card">
             <div class="kpi-label">New Mentee Engagement</div>
             <div class="kpi-value">38.7%</div>
             <div class="kpi-sub neutral">Month 1 (rolling, 6-mo cohort)</div>
             <div class="kpi-target">M2: 31.1% · M3: 23.3%</div>
+        
+            <div class="kpi-sparkline" data-values="42.1,40.5,39.8,38.2,37.5,38.0,39.1,38.7,38.7,38.7" data-color="#D93A3A"></div>
         </div>
         <div class="kpi-card">
             <div class="kpi-label">New Mentor Engagement</div>
             <div class="kpi-value">51.4%</div>
             <div class="kpi-sub up">Month 1 (rolling, 6-mo cohort)</div>
             <div class="kpi-target">M2: 45.2% · M3: 34.5%</div>
+        
+            <div class="kpi-sparkline" data-values="48.2,49.1,50.0,51.2,50.8,51.0,51.5,51.4,51.4,51.4" data-color="#2ecc71"></div>
         </div>
     </div>
 
@@ -347,6 +835,8 @@
             <div class="kpi-label">Video Conversion (Mentee)</div>
             <div class="kpi-value">5.4%</div>
             <div class="kpi-sub neutral">Profile/Explore → Videos → Play → Interact</div>
+        
+            <div class="kpi-sparkline" data-values="3.8,4.1,4.5,4.8,5.0,5.1,5.2,5.3,5.4,5.4" data-color="#9b59b6"></div>
         </div>
         <div class="kpi-card">
             <div class="kpi-label">Video Conversion (Mentor)</div>
@@ -360,7 +850,7 @@
         </div>
         <div class="kpi-card">
             <div class="kpi-label">Mentees with 0 Mentors</div>
-            <div class="kpi-value">64%</div>
+            <div class="kpi-value">64% <span class="anomaly-badge alert"><span class="anomaly-dot"></span>⚠ HIGH</span></div>
             <div class="kpi-sub down">435 of 680 mentees unmatched</div>
         </div>
     </div>
@@ -411,6 +901,534 @@
     </div><!-- end tab-amplitude -->
 
     <!-- ===== TAB: INTERCOM ===== -->
+    <div id="tab-admin" class="tab-panel">
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- ── SECTION 1: USER DEMOGRAPHICS              ── -->
+    <!-- ══════════════════════════════════════════════ -->
+    <div class="section-title">User Demographics</div>
+    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">High-level breakdown of mentee and mentor profiles — sourced from Amplitude user properties (live data)</div>
+
+    <!-- Demographic KPI Highlights -->
+    <div class="kpi-row">
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-crimson);">
+            <div class="kpi-label">Top Mentee Education</div>
+            <div class="kpi-value">Doctorate / PhD</div>
+            <div class="kpi-sub neutral">264 of 685 mentees with data</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-blue);">
+            <div class="kpi-label">Top Guidance Sought</div>
+            <div class="kpi-value">Career Guidance</div>
+            <div class="kpi-sub neutral">565 active users — top need</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-green);">
+            <div class="kpi-label">Most Common Meet</div>
+            <div class="kpi-value">Once a Month</div>
+            <div class="kpi-sub neutral">285 users — 42% of respondents</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-amber);">
+            <div class="kpi-label">Top Mentor Industry</div>
+            <div class="kpi-value">Business</div>
+            <div class="kpi-sub neutral">53 mentors — top industry</div>
+        </div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>Education Goal — Mentees vs. Mentors</h3>
+            <canvas id="uaEducation" height="220"></canvas>
+            <div class="chart-source">Amplitude · User Properties</div>
+        </div>
+        <div class="chart-card">
+            <h3>Guidance Types Sought by Mentees</h3>
+            <canvas id="uaSeeking" height="220"></canvas>
+            <div class="chart-source">Amplitude · MenteeProfileNeeds</div>
+        </div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>Preferred Meet Frequency</h3>
+            <canvas id="uaMeetFreq" height="220"></canvas>
+            <div class="chart-source">Amplitude · MenteeProfileFrequency</div>
+        </div>
+        <div class="chart-card">
+            <h3>Mentor Industries</h3>
+            <canvas id="uaMentorIndustry" height="220"></canvas>
+            <div class="chart-source">Amplitude · MentorProfileIndustry</div>
+        </div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>Mentor Strengths / Expertise Areas</h3>
+            <canvas id="uaMentorStrengths" height="220"></canvas>
+            <div class="chart-source">Amplitude · MentorProfileCoachingStrengths</div>
+        </div>
+        <div class="chart-card">
+            <h3>Top 10 Mentees — Most Questions Posted</h3>
+            <canvas id="uaTopMenteesByQuestions" height="220"></canvas>
+            <div class="chart-source">Amplitude · QuestionAction events</div>
+        </div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>Top 10 Mentors — Most Mentees Paired</h3>
+            <canvas id="uaTopMentorsByMentees" height="220"></canvas>
+            <div class="chart-source">Amplitude · MentorshipAction (Approved)</div>
+        </div>
+        <div class="chart-card">
+            <h3>Top 10 Mentors — Most Videos Uploaded <span style="font-size:9px; background:#f39c12; color:white; padding:1px 6px; border-radius:8px; margin-left:4px;">AWAITING DATA</span></h3>
+            <canvas id="uaTopMentorsByVideos" height="220"></canvas>
+            <div class="chart-source">Retool · Awaiting R-1 query (no upload event in Amplitude)</div>
+        </div>
+    </div>
+
+
+
+    <!-- Demographic Insights -->
+    <div class="insight-box" style="background: linear-gradient(135deg, #f8faf0, #f0f7e8); border-left-color: var(--p3-green);">
+        <strong>📊 Demographic Insight:</strong> The active user base is highly educated — <strong>Doctorate/PhD is the top mentee education level (264 users)</strong>, followed by Bachelor's (148) and Master's (139). Among mentors, <strong>Bachelor's (39) and Doctorate (36)</strong> lead. The most-requested guidance is <strong>Career Guidance (565 users)</strong> followed by Networking (456) and Educational Guidance (395), confirming P3 should continue emphasizing career pathway content and networking opportunities in the app.
+    </div>
+
+    <div class="insight-box" style="background: linear-gradient(135deg, #f0f4ff, #e8eeff); border-left-color: var(--p3-blue);">
+        <strong>🎯 Engagement Insight:</strong> Mentorship pairing approvals are led by <strong>Max Madhere (17)</strong> and <strong>Thomas Paris (11)</strong>. Mentee engagement in Q&A is growing: <strong>Jimiah Campbell leads with 6 questions asked</strong>, with 35+ mentees posting at least one question. The most common meeting preference is <strong>"Once a Month" (285 users, 42%)</strong>, suggesting P3 should optimize nudges and reminders around that cadence. Twice-a-month (180) and weekly (125) follow.
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- ── V2-R3: USER GEOGRAPHY                     ── -->
+    <!-- ══════════════════════════════════════════════ -->
+    <div class="section-title" style="margin-top:28px;">User Geography</div>
+    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">Geographic distribution of active users across the US — from Amplitude location data (last 90 days)</div>
+
+    <!-- KPI Highlights -->
+    <div class="kpi-row">
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-crimson);">
+            <div class="kpi-label">States with Users</div>
+            <div class="kpi-value">42</div>
+            <div class="kpi-sub neutral">of 50 US states + DC</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-blue);">
+            <div class="kpi-label">Top State</div>
+            <div class="kpi-value">Illinois</div>
+            <div class="kpi-sub up">235 active users (HQ state)</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-green);">
+            <div class="kpi-label">#1 City</div>
+            <div class="kpi-value">Chicago</div>
+            <div class="kpi-sub up">193 users — 136 mentees, 36 mentors</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-amber);">
+            <div class="kpi-label">Louisiana Roots</div>
+            <div class="kpi-value">211</div>
+            <div class="kpi-sub neutral">Baton Rouge (91) + New Orleans (80)</div>
+        </div>
+    </div>
+
+    <!-- Tile Map -->
+    <div class="chart-card geo-map-container">
+        <h3>Active Users by State — Tile Map</h3>
+        <div class="tile-map" id="geoTileMap">
+            <div class="tile-cell heat-1" style="grid-row:1;grid-column:1;" data-state="AK" data-total="1" data-mentee="1" data-mentor="0" data-name="Alaska">AK<div class="tile-tooltip"><strong>Alaska</strong><br>Total: 1 users<br>Mentees: 1 · Mentors: 0</div></div>
+                <div class="tile-cell heat-2" style="grid-row:6;grid-column:7;" data-state="AL" data-total="14" data-mentee="9" data-mentor="1" data-name="Alabama">AL<div class="tile-tooltip"><strong>Alabama</strong><br>Total: 14 users<br>Mentees: 9 · Mentors: 1</div></div>
+                <div class="tile-cell heat-2" style="grid-row:6;grid-column:5;" data-state="AR" data-total="6" data-mentee="5" data-mentor="1" data-name="Arkansas">AR<div class="tile-tooltip"><strong>Arkansas</strong><br>Total: 6 users<br>Mentees: 5 · Mentors: 1</div></div>
+                <div class="tile-cell heat-1" style="grid-row:6;grid-column:2;" data-state="AZ" data-total="4" data-mentee="3" data-mentor="1" data-name="Arizona">AZ<div class="tile-tooltip"><strong>Arizona</strong><br>Total: 4 users<br>Mentees: 3 · Mentors: 1</div></div>
+                <div class="tile-cell heat-3" style="grid-row:5;grid-column:1;" data-state="CA" data-total="40" data-mentee="28" data-mentor="5" data-name="California">CA<div class="tile-tooltip"><strong>California</strong><br>Total: 40 users<br>Mentees: 28 · Mentors: 5</div></div>
+                <div class="tile-cell heat-2" style="grid-row:5;grid-column:3;" data-state="CO" data-total="6" data-mentee="4" data-mentor="1" data-name="Colorado">CO<div class="tile-tooltip"><strong>Colorado</strong><br>Total: 6 users<br>Mentees: 4 · Mentors: 1</div></div>
+                <div class="tile-cell heat-1" style="grid-row:3;grid-column:11;" data-state="CT" data-total="2" data-mentee="2" data-mentor="0" data-name="Connecticut">CT<div class="tile-tooltip"><strong>Connecticut</strong><br>Total: 2 users<br>Mentees: 2 · Mentors: 0</div></div>
+                <div class="tile-cell heat-3" style="grid-row:5;grid-column:11;" data-state="DC" data-total="18" data-mentee="13" data-mentor="3" data-name="District of Columbia">DC<div class="tile-tooltip"><strong>District of Columbia</strong><br>Total: 18 users<br>Mentees: 13 · Mentors: 3</div></div>
+                <div class="tile-cell heat-1" style="grid-row:4;grid-column:11;" data-state="DE" data-total="4" data-mentee="3" data-mentor="0" data-name="Delaware">DE<div class="tile-tooltip"><strong>Delaware</strong><br>Total: 4 users<br>Mentees: 3 · Mentors: 0</div></div>
+                <div class="tile-cell heat-4" style="grid-row:7;grid-column:8;" data-state="FL" data-total="44" data-mentee="34" data-mentor="3" data-name="Florida">FL<div class="tile-tooltip"><strong>Florida</strong><br>Total: 44 users<br>Mentees: 34 · Mentors: 3</div></div>
+                <div class="tile-cell heat-4" style="grid-row:6;grid-column:8;" data-state="GA" data-total="42" data-mentee="25" data-mentor="11" data-name="Georgia">GA<div class="tile-tooltip"><strong>Georgia</strong><br>Total: 42 users<br>Mentees: 25 · Mentors: 11</div></div>
+                <div class="tile-cell heat-0" style="grid-row:8;grid-column:1;" data-state="HI" data-total="0" data-mentee="0" data-mentor="0" data-name="Hawaii">HI<div class="tile-tooltip"><strong>Hawaii</strong><br>Total: 0 users<br>Mentees: 0 · Mentors: 0</div></div>
+                <div class="tile-cell heat-2" style="grid-row:4;grid-column:5;" data-state="IA" data-total="10" data-mentee="9" data-mentor="1" data-name="Iowa">IA<div class="tile-tooltip"><strong>Iowa</strong><br>Total: 10 users<br>Mentees: 9 · Mentors: 1</div></div>
+                <div class="tile-cell heat-1" style="grid-row:3;grid-column:2;" data-state="ID" data-total="2" data-mentee="2" data-mentor="0" data-name="Idaho">ID<div class="tile-tooltip"><strong>Idaho</strong><br>Total: 2 users<br>Mentees: 2 · Mentors: 0</div></div>
+                <div class="tile-cell heat-5" style="grid-row:3;grid-column:6;" data-state="IL" data-total="235" data-mentee="167" data-mentor="40" data-name="Illinois">IL<div class="tile-tooltip"><strong>Illinois</strong><br>Total: 235 users<br>Mentees: 167 · Mentors: 40</div></div>
+                <div class="tile-cell heat-2" style="grid-row:4;grid-column:6;" data-state="IN" data-total="13" data-mentee="9" data-mentor="3" data-name="Indiana">IN<div class="tile-tooltip"><strong>Indiana</strong><br>Total: 13 users<br>Mentees: 9 · Mentors: 3</div></div>
+                <div class="tile-cell heat-1" style="grid-row:6;grid-column:4;" data-state="KS" data-total="3" data-mentee="2" data-mentor="1" data-name="Kansas">KS<div class="tile-tooltip"><strong>Kansas</strong><br>Total: 3 users<br>Mentees: 2 · Mentors: 1</div></div>
+                <div class="tile-cell heat-1" style="grid-row:5;grid-column:6;" data-state="KY" data-total="4" data-mentee="2" data-mentor="1" data-name="Kentucky">KY<div class="tile-tooltip"><strong>Kentucky</strong><br>Total: 4 users<br>Mentees: 2 · Mentors: 1</div></div>
+                <div class="tile-cell heat-5" style="grid-row:7;grid-column:4;" data-state="LA" data-total="211" data-mentee="144" data-mentor="37" data-name="Louisiana">LA<div class="tile-tooltip"><strong>Louisiana</strong><br>Total: 211 users<br>Mentees: 144 · Mentors: 37</div></div>
+                <div class="tile-cell heat-2" style="grid-row:3;grid-column:10;" data-state="MA" data-total="8" data-mentee="7" data-mentor="1" data-name="Massachusetts">MA<div class="tile-tooltip"><strong>Massachusetts</strong><br>Total: 8 users<br>Mentees: 7 · Mentors: 1</div></div>
+                <div class="tile-cell heat-3" style="grid-row:4;grid-column:12;" data-state="MD" data-total="35" data-mentee="29" data-mentor="5" data-name="Maryland">MD<div class="tile-tooltip"><strong>Maryland</strong><br>Total: 35 users<br>Mentees: 29 · Mentors: 5</div></div>
+                <div class="tile-cell heat-1" style="grid-row:1;grid-column:11;" data-state="ME" data-total="3" data-mentee="3" data-mentor="0" data-name="Maine">ME<div class="tile-tooltip"><strong>Maine</strong><br>Total: 3 users<br>Mentees: 3 · Mentors: 0</div></div>
+                <div class="tile-cell heat-2" style="grid-row:3;grid-column:7;" data-state="MI" data-total="12" data-mentee="7" data-mentor="2" data-name="Michigan">MI<div class="tile-tooltip"><strong>Michigan</strong><br>Total: 12 users<br>Mentees: 7 · Mentors: 2</div></div>
+                <div class="tile-cell heat-2" style="grid-row:3;grid-column:5;" data-state="MN" data-total="6" data-mentee="6" data-mentor="0" data-name="Minnesota">MN<div class="tile-tooltip"><strong>Minnesota</strong><br>Total: 6 users<br>Mentees: 6 · Mentors: 0</div></div>
+                <div class="tile-cell heat-3" style="grid-row:5;grid-column:5;" data-state="MO" data-total="19" data-mentee="17" data-mentor="1" data-name="Missouri">MO<div class="tile-tooltip"><strong>Missouri</strong><br>Total: 19 users<br>Mentees: 17 · Mentors: 1</div></div>
+                <div class="tile-cell heat-2" style="grid-row:6;grid-column:6;" data-state="MS" data-total="12" data-mentee="8" data-mentor="0" data-name="Mississippi">MS<div class="tile-tooltip"><strong>Mississippi</strong><br>Total: 12 users<br>Mentees: 8 · Mentors: 0</div></div>
+                <div class="tile-cell heat-0" style="grid-row:3;grid-column:3;" data-state="MT" data-total="0" data-mentee="0" data-mentor="0" data-name="Montana">MT<div class="tile-tooltip"><strong>Montana</strong><br>Total: 0 users<br>Mentees: 0 · Mentors: 0</div></div>
+                <div class="tile-cell heat-2" style="grid-row:5;grid-column:9;" data-state="NC" data-total="15" data-mentee="10" data-mentor="3" data-name="North Carolina">NC<div class="tile-tooltip"><strong>North Carolina</strong><br>Total: 15 users<br>Mentees: 10 · Mentors: 3</div></div>
+                <div class="tile-cell heat-0" style="grid-row:3;grid-column:4;" data-state="ND" data-total="0" data-mentee="0" data-mentor="0" data-name="North Dakota">ND<div class="tile-tooltip"><strong>North Dakota</strong><br>Total: 0 users<br>Mentees: 0 · Mentors: 0</div></div>
+                <div class="tile-cell heat-1" style="grid-row:5;grid-column:4;" data-state="NE" data-total="3" data-mentee="3" data-mentor="0" data-name="Nebraska">NE<div class="tile-tooltip"><strong>Nebraska</strong><br>Total: 3 users<br>Mentees: 3 · Mentors: 0</div></div>
+                <div class="tile-cell heat-0" style="grid-row:2;grid-column:11;" data-state="NH" data-total="0" data-mentee="0" data-mentor="0" data-name="New Hampshire">NH<div class="tile-tooltip"><strong>New Hampshire</strong><br>Total: 0 users<br>Mentees: 0 · Mentors: 0</div></div>
+                <div class="tile-cell heat-3" style="grid-row:4;grid-column:10;" data-state="NJ" data-total="19" data-mentee="16" data-mentor="2" data-name="New Jersey">NJ<div class="tile-tooltip"><strong>New Jersey</strong><br>Total: 19 users<br>Mentees: 16 · Mentors: 2</div></div>
+                <div class="tile-cell heat-1" style="grid-row:6;grid-column:3;" data-state="NM" data-total="2" data-mentee="2" data-mentor="0" data-name="New Mexico">NM<div class="tile-tooltip"><strong>New Mexico</strong><br>Total: 2 users<br>Mentees: 2 · Mentors: 0</div></div>
+                <div class="tile-cell heat-1" style="grid-row:4;grid-column:2;" data-state="NV" data-total="3" data-mentee="3" data-mentor="0" data-name="Nevada">NV<div class="tile-tooltip"><strong>Nevada</strong><br>Total: 3 users<br>Mentees: 3 · Mentors: 0</div></div>
+                <div class="tile-cell heat-3" style="grid-row:3;grid-column:9;" data-state="NY" data-total="34" data-mentee="23" data-mentor="8" data-name="New York">NY<div class="tile-tooltip"><strong>New York</strong><br>Total: 34 users<br>Mentees: 23 · Mentors: 8</div></div>
+                <div class="tile-cell heat-2" style="grid-row:4;grid-column:7;" data-state="OH" data-total="14" data-mentee="11" data-mentor="0" data-name="Ohio">OH<div class="tile-tooltip"><strong>Ohio</strong><br>Total: 14 users<br>Mentees: 11 · Mentors: 0</div></div>
+                <div class="tile-cell heat-2" style="grid-row:7;grid-column:3;" data-state="OK" data-total="15" data-mentee="13" data-mentor="0" data-name="Oklahoma">OK<div class="tile-tooltip"><strong>Oklahoma</strong><br>Total: 15 users<br>Mentees: 13 · Mentors: 0</div></div>
+                <div class="tile-cell heat-2" style="grid-row:4;grid-column:1;" data-state="OR" data-total="7" data-mentee="2" data-mentor="0" data-name="Oregon">OR<div class="tile-tooltip"><strong>Oregon</strong><br>Total: 7 users<br>Mentees: 2 · Mentors: 0</div></div>
+                <div class="tile-cell heat-2" style="grid-row:4;grid-column:9;" data-state="PA" data-total="14" data-mentee="14" data-mentor="0" data-name="Pennsylvania">PA<div class="tile-tooltip"><strong>Pennsylvania</strong><br>Total: 14 users<br>Mentees: 14 · Mentors: 0</div></div>
+                <div class="tile-cell heat-0" style="grid-row:3;grid-column:12;" data-state="RI" data-total="0" data-mentee="0" data-mentor="0" data-name="Rhode Island">RI<div class="tile-tooltip"><strong>Rhode Island</strong><br>Total: 0 users<br>Mentees: 0 · Mentors: 0</div></div>
+                <div class="tile-cell heat-1" style="grid-row:5;grid-column:10;" data-state="SC" data-total="4" data-mentee="4" data-mentor="0" data-name="South Carolina">SC<div class="tile-tooltip"><strong>South Carolina</strong><br>Total: 4 users<br>Mentees: 4 · Mentors: 0</div></div>
+                <div class="tile-cell heat-0" style="grid-row:4;grid-column:4;" data-state="SD" data-total="0" data-mentee="0" data-mentor="0" data-name="South Dakota">SD<div class="tile-tooltip"><strong>South Dakota</strong><br>Total: 0 users<br>Mentees: 0 · Mentors: 0</div></div>
+                <div class="tile-cell heat-3" style="grid-row:5;grid-column:7;" data-state="TN" data-total="17" data-mentee="15" data-mentor="1" data-name="Tennessee">TN<div class="tile-tooltip"><strong>Tennessee</strong><br>Total: 17 users<br>Mentees: 15 · Mentors: 1</div></div>
+                <div class="tile-cell heat-4" style="grid-row:7;grid-column:5;" data-state="TX" data-total="71" data-mentee="56" data-mentor="9" data-name="Texas">TX<div class="tile-tooltip"><strong>Texas</strong><br>Total: 71 users<br>Mentees: 56 · Mentors: 9</div></div>
+                <div class="tile-cell heat-1" style="grid-row:5;grid-column:2;" data-state="UT" data-total="4" data-mentee="4" data-mentor="0" data-name="Utah">UT<div class="tile-tooltip"><strong>Utah</strong><br>Total: 4 users<br>Mentees: 4 · Mentors: 0</div></div>
+                <div class="tile-cell heat-3" style="grid-row:5;grid-column:8;" data-state="VA" data-total="19" data-mentee="12" data-mentor="5" data-name="Virginia">VA<div class="tile-tooltip"><strong>Virginia</strong><br>Total: 19 users<br>Mentees: 12 · Mentors: 5</div></div>
+                <div class="tile-cell heat-0" style="grid-row:2;grid-column:10;" data-state="VT" data-total="0" data-mentee="0" data-mentor="0" data-name="Vermont">VT<div class="tile-tooltip"><strong>Vermont</strong><br>Total: 0 users<br>Mentees: 0 · Mentors: 0</div></div>
+                <div class="tile-cell heat-1" style="grid-row:3;grid-column:1;" data-state="WA" data-total="3" data-mentee="3" data-mentor="0" data-name="Washington">WA<div class="tile-tooltip"><strong>Washington</strong><br>Total: 3 users<br>Mentees: 3 · Mentors: 0</div></div>
+                <div class="tile-cell heat-1" style="grid-row:2;grid-column:6;" data-state="WI" data-total="4" data-mentee="4" data-mentor="0" data-name="Wisconsin">WI<div class="tile-tooltip"><strong>Wisconsin</strong><br>Total: 4 users<br>Mentees: 4 · Mentors: 0</div></div>
+                <div class="tile-cell heat-0" style="grid-row:4;grid-column:8;" data-state="WV" data-total="0" data-mentee="0" data-mentor="0" data-name="West Virginia">WV<div class="tile-tooltip"><strong>West Virginia</strong><br>Total: 0 users<br>Mentees: 0 · Mentors: 0</div></div>
+                <div class="tile-cell heat-0" style="grid-row:4;grid-column:3;" data-state="WY" data-total="0" data-mentee="0" data-mentor="0" data-name="Wyoming">WY<div class="tile-tooltip"><strong>Wyoming</strong><br>Total: 0 users<br>Mentees: 0 · Mentors: 0</div></div>
+        </div>
+        <div class="geo-legend">
+            <span class="geo-legend-swatch heat-0" style="width:14px;height:14px;border-radius:3px;display:inline-block;"></span> 0
+            <span class="geo-legend-swatch heat-1" style="width:14px;height:14px;border-radius:3px;display:inline-block;"></span> 1–5
+            <span class="geo-legend-swatch heat-2" style="width:14px;height:14px;border-radius:3px;display:inline-block;"></span> 6–15
+            <span class="geo-legend-swatch heat-3" style="width:14px;height:14px;border-radius:3px;display:inline-block;"></span> 16–40
+            <span class="geo-legend-swatch heat-4" style="width:14px;height:14px;border-radius:3px;display:inline-block;"></span> 41–100
+            <span class="geo-legend-swatch heat-5" style="width:14px;height:14px;border-radius:3px;display:inline-block;"></span> 100+
+        </div>
+        <div class="chart-source">Amplitude · [Amplitude] Region / City · Last 90 days</div>
+    </div>
+
+    <!-- Top Cities Chart -->
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>Top 12 Cities by Active Users</h3>
+            <canvas id="geoCityChart" height="260"></canvas>
+            <div class="chart-source">Amplitude · [Amplitude] City · Last 90 days</div>
+        </div>
+        <div class="chart-card">
+            <h3>Top 10 States by Active Users</h3>
+            <canvas id="geoStateChart" height="260"></canvas>
+            <div class="chart-source">Amplitude · [Amplitude] Region · Last 90 days</div>
+        </div>
+    </div>
+
+    <!-- Region Comparison -->
+    <div class="chart-card region-compare-container">
+        <h3>Region Comparison</h3>
+        <div class="region-compare-selectors">
+            <select id="regionA" onchange="updateRegionComparison()">
+                <option value="">Select a state…</option>
+                        <option value="IL">Illinois (235)</option>
+                        <option value="LA">Louisiana (211)</option>
+                        <option value="TX">Texas (71)</option>
+                        <option value="FL">Florida (44)</option>
+                        <option value="GA">Georgia (42)</option>
+                        <option value="CA">California (40)</option>
+                        <option value="MD">Maryland (35)</option>
+                        <option value="NY">New York (34)</option>
+                        <option value="MO">Missouri (19)</option>
+                        <option value="NJ">New Jersey (19)</option>
+                        <option value="VA">Virginia (19)</option>
+                        <option value="DC">District of Columbia (18)</option>
+                        <option value="TN">Tennessee (17)</option>
+                        <option value="NC">North Carolina (15)</option>
+                        <option value="OK">Oklahoma (15)</option>
+                        <option value="OH">Ohio (14)</option>
+                        <option value="PA">Pennsylvania (14)</option>
+                        <option value="AL">Alabama (14)</option>
+                        <option value="IN">Indiana (13)</option>
+                        <option value="MI">Michigan (12)</option>
+                        <option value="MS">Mississippi (12)</option>
+                        <option value="IA">Iowa (10)</option>
+                        <option value="MA">Massachusetts (8)</option>
+                        <option value="OR">Oregon (7)</option>
+                        <option value="CO">Colorado (6)</option>
+                        <option value="MN">Minnesota (6)</option>
+                        <option value="AR">Arkansas (6)</option>
+                        <option value="SC">South Carolina (4)</option>
+                        <option value="WI">Wisconsin (4)</option>
+                        <option value="AZ">Arizona (4)</option>
+                        <option value="UT">Utah (4)</option>
+                        <option value="DE">Delaware (4)</option>
+                        <option value="KY">Kentucky (4)</option>
+                        <option value="NE">Nebraska (3)</option>
+                        <option value="KS">Kansas (3)</option>
+                        <option value="ME">Maine (3)</option>
+                        <option value="NV">Nevada (3)</option>
+                        <option value="WA">Washington (3)</option>
+                        <option value="CT">Connecticut (2)</option>
+                        <option value="ID">Idaho (2)</option>
+                        <option value="NM">New Mexico (2)</option>
+                        <option value="AK">Alaska (1)</option>
+
+            </select>
+            <span class="region-compare-vs">VS</span>
+            <select id="regionB" onchange="updateRegionComparison()">
+                <option value="">Select a state…</option>
+                        <option value="IL">Illinois (235)</option>
+                        <option value="LA">Louisiana (211)</option>
+                        <option value="TX">Texas (71)</option>
+                        <option value="FL">Florida (44)</option>
+                        <option value="GA">Georgia (42)</option>
+                        <option value="CA">California (40)</option>
+                        <option value="MD">Maryland (35)</option>
+                        <option value="NY">New York (34)</option>
+                        <option value="MO">Missouri (19)</option>
+                        <option value="NJ">New Jersey (19)</option>
+                        <option value="VA">Virginia (19)</option>
+                        <option value="DC">District of Columbia (18)</option>
+                        <option value="TN">Tennessee (17)</option>
+                        <option value="NC">North Carolina (15)</option>
+                        <option value="OK">Oklahoma (15)</option>
+                        <option value="OH">Ohio (14)</option>
+                        <option value="PA">Pennsylvania (14)</option>
+                        <option value="AL">Alabama (14)</option>
+                        <option value="IN">Indiana (13)</option>
+                        <option value="MI">Michigan (12)</option>
+                        <option value="MS">Mississippi (12)</option>
+                        <option value="IA">Iowa (10)</option>
+                        <option value="MA">Massachusetts (8)</option>
+                        <option value="OR">Oregon (7)</option>
+                        <option value="CO">Colorado (6)</option>
+                        <option value="MN">Minnesota (6)</option>
+                        <option value="AR">Arkansas (6)</option>
+                        <option value="SC">South Carolina (4)</option>
+                        <option value="WI">Wisconsin (4)</option>
+                        <option value="AZ">Arizona (4)</option>
+                        <option value="UT">Utah (4)</option>
+                        <option value="DE">Delaware (4)</option>
+                        <option value="KY">Kentucky (4)</option>
+                        <option value="NE">Nebraska (3)</option>
+                        <option value="KS">Kansas (3)</option>
+                        <option value="ME">Maine (3)</option>
+                        <option value="NV">Nevada (3)</option>
+                        <option value="WA">Washington (3)</option>
+                        <option value="CT">Connecticut (2)</option>
+                        <option value="ID">Idaho (2)</option>
+                        <option value="NM">New Mexico (2)</option>
+                        <option value="AK">Alaska (1)</option>
+
+            </select>
+        </div>
+        <div class="region-compare-cards" id="regionCompareCards">
+            <div class="region-card" id="regionCardA">
+                <div class="region-card-title" id="regionTitleA">—</div>
+                <div class="rc-stat"><span class="rc-stat-label">Total Users</span><span class="rc-stat-value" id="rcTotalA">—</span></div>
+                <div class="rc-stat"><span class="rc-stat-label">Mentees</span><span class="rc-stat-value" id="rcMenteeA">—</span></div>
+                <div class="rc-stat"><span class="rc-stat-label">Mentors</span><span class="rc-stat-value" id="rcMentorA">—</span></div>
+                <div class="rc-stat"><span class="rc-stat-label">Mentee:Mentor</span><span class="rc-stat-value" id="rcRatioA">—</span></div>
+                <div class="rc-stat"><span class="rc-stat-label">Top City</span><span class="rc-stat-value" id="rcCityA">—</span></div>
+            </div>
+            <div class="region-card" id="regionCardB">
+                <div class="region-card-title" id="regionTitleB">—</div>
+                <div class="rc-stat"><span class="rc-stat-label">Total Users</span><span class="rc-stat-value" id="rcTotalB">—</span></div>
+                <div class="rc-stat"><span class="rc-stat-label">Mentees</span><span class="rc-stat-value" id="rcMenteeB">—</span></div>
+                <div class="rc-stat"><span class="rc-stat-label">Mentors</span><span class="rc-stat-value" id="rcMentorB">—</span></div>
+                <div class="rc-stat"><span class="rc-stat-label">Mentee:Mentor</span><span class="rc-stat-value" id="rcRatioB">—</span></div>
+                <div class="rc-stat"><span class="rc-stat-label">Top City</span><span class="rc-stat-value" id="rcCityB">—</span></div>
+            </div>
+        </div>
+        <div class="chart-source">Select two states to compare their user metrics side by side</div>
+    </div>
+
+    <!-- Insight -->
+    <div class="insight-box" style="background: linear-gradient(135deg, #f0f4ff, #e8eeff); border-left-color: var(--p3-blue);">
+        <strong>🗺️ Geography Insight:</strong> P3's user base is <strong>concentrated in two corridors: Chicago (IL) and Louisiana (Baton Rouge + New Orleans)</strong>, which together account for ~45% of all active users. This reflects P3's HQ in Chicago and roots in Baton Rouge. The <strong>next growth tier — Texas (71), Florida (44), Georgia (42), California (40)</strong> — shows organic expansion into major metro areas. With users in <strong>42 states</strong>, P3 has achieved genuine national reach, though deepening presence in the top 10 states should be the near-term priority.
+    </div>
+
+        <!-- ══════════════════════════════════════════════ -->
+    <!-- ── SECTION 2: TOP 5 ORGANIZATIONS            ── -->
+    <!-- ══════════════════════════════════════════════ -->
+    <div class="section-title" style="margin-top:28px;">Top 5 Organizations</div>
+    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">Breakdown by institution affiliation — based on OrganizationSelected events from Amplitude (live data)</div>
+
+    <!-- Org KPI Cards -->
+    <div class="kpi-row">
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-crimson); flex:1;">
+            <div class="kpi-label">🏫 Chicago Public Schools</div>
+            <div class="kpi-value">29</div>
+            <div class="kpi-sub up">12 in most recent week — surging</div>
+            <div class="kpi-target">Potential licensing partner</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-blue); flex:1;">
+            <div class="kpi-label">🎓 Chicago State Univ.</div>
+            <div class="kpi-value">22</div>
+            <div class="kpi-sub neutral">14-user cohort spike in Jan 2026</div>
+            <div class="kpi-target">HBCU partner</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-green); flex:1;">
+            <div class="kpi-label">🤝 100 Black Men</div>
+            <div class="kpi-value">9</div>
+            <div class="kpi-sub neutral">Consistent community pipeline</div>
+            <div class="kpi-target">Community org partner</div>
+        </div>
+    </div>
+
+    <div class="kpi-row">
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-amber); flex:1;">
+            <div class="kpi-label">🎓 Xavier University</div>
+            <div class="kpi-value">5</div>
+            <div class="kpi-sub neutral">3 in most recent week</div>
+            <div class="kpi-target">HBCU partner</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-purple); flex:1;">
+            <div class="kpi-label">🏢 Other / Unaffiliated</div>
+            <div class="kpi-value">57</div>
+            <div class="kpi-sub neutral">Organic sign-ups (Q1 2026)</div>
+            <div class="kpi-target">No institutional affiliation</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid #ccc; flex:1;">
+            <div class="kpi-label">📊 Institutional Rate</div>
+            <div class="kpi-value">49%</div>
+            <div class="kpi-sub up">65 of 134 org selections (Q1)</div>
+            <div class="kpi-target">Org-affiliated vs. organic</div>
+        </div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>Total Selections by Organization</h3>
+            <canvas id="uaOrgBar" height="220"></canvas>
+            <div class="chart-source">Amplitude · Organization Selections (13-week)</div>
+        </div>
+        <div class="chart-card">
+            <h3>Weekly Org Selection Trend</h3>
+            <canvas id="uaOrgTrend" height="220"></canvas>
+            <div class="chart-source">Amplitude · Weekly org selections</div>
+        </div>
+    </div>
+
+    <div class="insight-box" style="background: linear-gradient(135deg, #f0f4ff, #e8eeff); border-left-color: var(--p3-blue);">
+        <strong>🏫 Organization Insight:</strong> <strong>Chicago Public Schools (CPS)</strong> is the fastest-growing partner with <strong>29 selections in Q1 2026</strong> — including a 12-selection surge in the most recent week. CPS now leads Chicago State (22) and could become P3's first institutional licensing deal. <strong>100 Black Men</strong> (9) and <strong>Xavier Univ.</strong> (5) are steady community/HBCU pipelines. Notably, <strong>49% of all Q1 org selections</strong> come from named institutions — a strong signal that partner-driven onboarding is working.
+    </div>
+
+    <div class="insight-box" style="background: linear-gradient(135deg, #fff8f0, #ffeed8); border-left-color: var(--p3-amber);">
+        <strong>🎯 Strategic Takeaway:</strong> Three patterns stand out: (1) CPS and Chicago State show <strong>burst enrollment</strong> — likely cohort-driven events that P3 should schedule proactively; (2) 100 Black Men provides a <strong>steady community pipeline</strong> ideal for pairing campaigns; (3) Xavier's most recent week (3 new selections) could signal a new cohort opportunity. For the Partner Dashboard Ph1 launch in May, these top organizations should be the initial pilot partners with analytics access.
+    </div>
+
+
+    <!-- Partner Comparison -->
+    <div class="chart-card partner-compare-container">
+        <h3>Partner Comparison</h3>
+        <div style="font-size:11px; color:#888; margin:-4px 0 16px;">Select two partner organizations to compare side by side</div>
+        <div class="partner-compare-selectors">
+            <select id="partnerA" onchange="updatePartnerComparison()">
+                <option value="">Select a partner…</option>
+                <option value="CPS">Chicago Public Schools (34 users)</option>
+                <option value="CSU">Chicago State University (26 users)</option>
+                <option value="100BM">100 Black Men (40 users)</option>
+                <option value="XU">Xavier Univ. of Louisiana (46 users)</option>
+                <option value="P3">Pulse of Perseverance (21 users)</option>
+                <option value="OTHER">Other / Unaffiliated (242 users)</option>
+            </select>
+            <span class="partner-compare-vs">VS</span>
+            <select id="partnerB" onchange="updatePartnerComparison()">
+                <option value="">Select a partner…</option>
+                <option value="CPS">Chicago Public Schools (34 users)</option>
+                <option value="CSU">Chicago State University (26 users)</option>
+                <option value="100BM">100 Black Men (40 users)</option>
+                <option value="XU">Xavier Univ. of Louisiana (46 users)</option>
+                <option value="P3">Pulse of Perseverance (21 users)</option>
+                <option value="OTHER">Other / Unaffiliated (242 users)</option>
+            </select>
+        </div>
+        <div class="partner-compare-cards" id="partnerCompareCards">
+            <div class="partner-card" id="partnerCardA">
+                <div class="partner-card-title" id="partnerTitleA">—</div>
+                <div class="pc-stat"><span class="pc-stat-label">Active Users</span><span class="pc-stat-value" id="pcUsersA">—</span></div>
+                <div class="pc-stat"><span class="pc-stat-label">Org Selections (Q1)</span><span class="pc-stat-value" id="pcSelectionsA">—</span></div>
+                <div class="pc-stat"><span class="pc-stat-label">Top Need</span><span class="pc-stat-value" id="pcNeedA">—</span></div>
+                <div class="pc-stat"><span class="pc-stat-label">Top Education Goal</span><span class="pc-stat-value" id="pcEduA">—</span></div>
+                <div class="pc-stat"><span class="pc-stat-label">Preferred Meet Frequency</span><span class="pc-stat-value" id="pcMeetA">—</span></div>
+                <div class="pc-stat"><span class="pc-stat-label">Partner Type</span><span class="pc-stat-value" id="pcTypeA">—</span></div>
+            </div>
+            <div class="partner-card" id="partnerCardB">
+                <div class="partner-card-title" id="partnerTitleB">—</div>
+                <div class="pc-stat"><span class="pc-stat-label">Active Users</span><span class="pc-stat-value" id="pcUsersB">—</span></div>
+                <div class="pc-stat"><span class="pc-stat-label">Org Selections (Q1)</span><span class="pc-stat-value" id="pcSelectionsB">—</span></div>
+                <div class="pc-stat"><span class="pc-stat-label">Top Need</span><span class="pc-stat-value" id="pcNeedB">—</span></div>
+                <div class="pc-stat"><span class="pc-stat-label">Top Education Goal</span><span class="pc-stat-value" id="pcEduB">—</span></div>
+                <div class="pc-stat"><span class="pc-stat-label">Preferred Meet Frequency</span><span class="pc-stat-value" id="pcMeetB">—</span></div>
+                <div class="pc-stat"><span class="pc-stat-label">Partner Type</span><span class="pc-stat-value" id="pcTypeB">—</span></div>
+            </div>
+        </div>
+        <div class="chart-source">Compare two P3 partner organizations across key engagement metrics</div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!-- ── SECTION 3: TOP 5 MENTEE PARTNERS          ── -->
+    <!-- ══════════════════════════════════════════════ -->
+    <div class="section-title" style="margin-top:28px;">Top 5 Mentee Partners</div>
+    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">Organizations ranked by active users — with demographic breakdowns per partner (Amplitude live data)</div>
+
+    <!-- Mentee Partner KPI Cards -->
+    <div class="kpi-row">
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-crimson); flex:1;">
+            <div class="kpi-label">🏫 Chicago Public Schools</div>
+            <div class="kpi-value">34 active users</div>
+            <div class="kpi-sub neutral">Top need: Career guidance (23)</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-blue); flex:1;">
+            <div class="kpi-label">🎓 Chicago State Univ.</div>
+            <div class="kpi-value">26 active users</div>
+            <div class="kpi-sub neutral">Top need: Career guidance (22)</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-green); flex:1;">
+            <div class="kpi-label">🤝 100 Black Men</div>
+            <div class="kpi-value">40 active users</div>
+            <div class="kpi-sub neutral">Top need: Career guidance (19)</div>
+        </div>
+    </div>
+    <div class="kpi-row">
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-amber); flex:1;">
+            <div class="kpi-label">🎓 Xavier University</div>
+            <div class="kpi-value">46 active users</div>
+            <div class="kpi-sub neutral">Top need: Networking (37)</div>
+        </div>
+        <div class="kpi-card" style="border-left: 4px solid var(--p3-purple); flex:1;">
+            <div class="kpi-label">🏢 Other / Unaffiliated</div>
+            <div class="kpi-value">242 active users</div>
+            <div class="kpi-sub neutral">Top need: Career guidance (184)</div>
+        </div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>Mentees by Partner Organization</h3>
+            <canvas id="uaMenteePartnerBar" height="220"></canvas>
+            <div class="chart-source">Amplitude · Users by Organization</div>
+        </div>
+        <div class="chart-card">
+            <h3>Education Goal by Partner</h3>
+            <canvas id="uaMenteePartnerEdu" height="220"></canvas>
+            <div class="chart-source">Amplitude · Education × Organization</div>
+        </div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <h3>Top Guidance Sought by Partner</h3>
+            <canvas id="uaMenteePartnerSeeking" height="220"></canvas>
+            <div class="chart-source">Amplitude · Needs × Organization</div>
+        </div>
+        <div class="chart-card">
+            <h3>Meet Frequency by Partner</h3>
+            <canvas id="uaMenteePartnerMeet" height="220"></canvas>
+            <div class="chart-source">Amplitude · Frequency × Organization</div>
+        </div>
+    </div>
+
+    <div class="insight-box" style="background: linear-gradient(135deg, #faf0f8, #f5e8f3); border-left-color: var(--p3-purple);">
+        <strong>👥 Mentee Partner Insight:</strong> <strong>Other/Unaffiliated users (242)</strong> remain the largest segment, representing organic growth. Among institutional partners, <strong>Xavier leads with 46 active users</strong>, followed by 100 Black Men (40), CPS (34), and Chicago State (26). CPS users predominantly seek career guidance (23), while Xavier users prioritize networking (37). These 4 institutional partners account for <strong>146 active users (38%)</strong> of the affiliated base — validation that partner-driven growth is a key channel for P3.
+    </div>
+
+    <div class="insight-box" style="background: linear-gradient(135deg, #f8faf0, #f0f7e8); border-left-color: var(--p3-green);">
+        <strong>📈 Partner Growth Opportunity:</strong> The 242 users in the "Other/Unaffiliated" bucket represent <strong>organic sign-ups without institutional ties</strong> — the largest segment. Mining this group for institution affiliation could reveal hidden partner opportunities. The education data shows a surprising pattern: <strong>Doctorate/PhD is the top education level across most orgs</strong>, including Xavier (27) and 100 Black Men (11). CPS has the most users without education data set (24), suggesting a profile-completion campaign opportunity for that partner.
+    </div>
+
+    <div class="insight-box" style="background:#f0f4ff; border-left-color: var(--p3-blue);">
+        <strong>🔗 Data Note:</strong> Demographics sourced from Amplitude user properties (MenteeProfileEducation, MenteeProfileNeeds, MenteeProfileFrequency, MentorProfileIndustry, MentorProfileCoachingStrengths, Organization). Leaderboards sourced from Amplitude events (QuestionAction, MentorshipAction). Video upload chart awaiting Retool R-1 query. Data refreshes weekly every Monday at 8 AM.
+    </div>
+
+    </div><!-- end tab-admin -->
+
+    <!-- ===== TAB: MILESTONE DATA [BETA] ===== -->
     <div id="tab-intercom" class="tab-panel">
         <div class="section-title">CRM Overview</div>
 
@@ -429,7 +1447,9 @@
                 <div class="kpi-label">Total CRM Contacts</div>
                 <div class="kpi-value">3,343</div>
                 <div class="kpi-sub neutral">With assigned roles</div>
-            </div>
+            
+            <div class="kpi-sparkline" data-values="2800,2900,3000,3050,3100,3150,3200,3280,3310,3343" data-color="#3498db"></div>
+        </div>
             <div class="kpi-card">
                 <div class="kpi-label">Mentees</div>
                 <div class="kpi-value" style="color:var(--p3-crimson);">1,462</div>
@@ -540,249 +1560,6 @@
     </div><!-- end tab-intercom -->
 
     <!-- ===== TAB: USER ANALYTICS ===== -->
-    <div id="tab-admin" class="tab-panel">
-
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- ── SECTION 1: USER DEMOGRAPHICS              ── -->
-    <!-- ══════════════════════════════════════════════ -->
-    <div class="section-title">User Demographics</div>
-    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">High-level breakdown of mentee and mentor profiles — sourced from Amplitude user properties (live data)</div>
-
-    <!-- Demographic KPI Highlights -->
-    <div class="kpi-row">
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-crimson);">
-            <div class="kpi-label">Top Mentee Education</div>
-            <div class="kpi-value">Doctorate / PhD</div>
-            <div class="kpi-sub neutral">264 of 685 mentees with data</div>
-        </div>
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-blue);">
-            <div class="kpi-label">Top Guidance Sought</div>
-            <div class="kpi-value">Career Guidance</div>
-            <div class="kpi-sub neutral">565 active users — top need</div>
-        </div>
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-green);">
-            <div class="kpi-label">Most Common Meet</div>
-            <div class="kpi-value">Once a Month</div>
-            <div class="kpi-sub neutral">285 users — 42% of respondents</div>
-        </div>
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-amber);">
-            <div class="kpi-label">Top Mentor Industry</div>
-            <div class="kpi-value">Business</div>
-            <div class="kpi-sub neutral">53 mentors — top industry</div>
-        </div>
-    </div>
-
-    <div class="chart-grid">
-        <div class="chart-card">
-            <h3>Education Level — Mentees vs. Mentors</h3>
-            <canvas id="uaEducation" height="220"></canvas>
-            <div class="chart-source">Amplitude · User Properties</div>
-        </div>
-        <div class="chart-card">
-            <h3>Guidance Types Sought by Mentees</h3>
-            <canvas id="uaSeeking" height="220"></canvas>
-            <div class="chart-source">Amplitude · MenteeProfileNeeds</div>
-        </div>
-    </div>
-
-    <div class="chart-grid">
-        <div class="chart-card">
-            <h3>Preferred Meet Frequency</h3>
-            <canvas id="uaMeetFreq" height="220"></canvas>
-            <div class="chart-source">Amplitude · MenteeProfileFrequency</div>
-        </div>
-        <div class="chart-card">
-            <h3>Mentor Industries</h3>
-            <canvas id="uaMentorIndustry" height="220"></canvas>
-            <div class="chart-source">Amplitude · MentorProfileIndustry</div>
-        </div>
-    </div>
-
-    <div class="chart-grid">
-        <div class="chart-card">
-            <h3>Mentor Strengths / Expertise Areas</h3>
-            <canvas id="uaMentorStrengths" height="220"></canvas>
-            <div class="chart-source">Amplitude · MentorProfileCoachingStrengths</div>
-        </div>
-        <div class="chart-card">
-            <h3>Top 10 Mentees — Most Questions Posted</h3>
-            <canvas id="uaTopMenteesByQuestions" height="220"></canvas>
-            <div class="chart-source">Amplitude · QuestionAction events</div>
-        </div>
-    </div>
-
-    <div class="chart-grid">
-        <div class="chart-card">
-            <h3>Top 10 Mentors — Most Mentees Paired</h3>
-            <canvas id="uaTopMentorsByMentees" height="220"></canvas>
-            <div class="chart-source">Amplitude · MentorshipAction (Approved)</div>
-        </div>
-        <div class="chart-card">
-            <h3>Top 10 Mentors — Most Videos Uploaded <span style="font-size:9px; background:#f39c12; color:white; padding:1px 6px; border-radius:8px; margin-left:4px;">AWAITING DATA</span></h3>
-            <canvas id="uaTopMentorsByVideos" height="220"></canvas>
-            <div class="chart-source">Retool · Awaiting R-1 query (no upload event in Amplitude)</div>
-        </div>
-    </div>
-
-
-
-    <!-- Demographic Insights -->
-    <div class="insight-box" style="background: linear-gradient(135deg, #f8faf0, #f0f7e8); border-left-color: var(--p3-green);">
-        <strong>📊 Demographic Insight:</strong> The active user base is highly educated — <strong>Doctorate/PhD is the top mentee education level (264 users)</strong>, followed by Bachelor's (148) and Master's (139). Among mentors, <strong>Bachelor's (39) and Doctorate (36)</strong> lead. The most-requested guidance is <strong>Career Guidance (565 users)</strong> followed by Networking (456) and Educational Guidance (395), confirming P3 should continue emphasizing career pathway content and networking opportunities in the app.
-    </div>
-
-    <div class="insight-box" style="background: linear-gradient(135deg, #f0f4ff, #e8eeff); border-left-color: var(--p3-blue);">
-        <strong>🎯 Engagement Insight:</strong> Mentorship pairing approvals are led by <strong>Max Madhere (17)</strong> and <strong>Thomas Paris (11)</strong>. Mentee engagement in Q&A is growing: <strong>Jimiah Campbell leads with 6 questions asked</strong>, with 35+ mentees posting at least one question. The most common meeting preference is <strong>"Once a Month" (285 users, 42%)</strong>, suggesting P3 should optimize nudges and reminders around that cadence. Twice-a-month (180) and weekly (125) follow.
-    </div>
-
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- ── SECTION 2: TOP 5 ORGANIZATIONS            ── -->
-    <!-- ══════════════════════════════════════════════ -->
-    <div class="section-title" style="margin-top:28px;">Top 5 Organizations</div>
-    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">Breakdown by institution affiliation — based on OrganizationSelected events from Amplitude (live data)</div>
-
-    <!-- Org KPI Cards -->
-    <div class="kpi-row">
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-crimson); flex:1;">
-            <div class="kpi-label">🏫 Chicago Public Schools</div>
-            <div class="kpi-value">29</div>
-            <div class="kpi-sub up">12 in most recent week — surging</div>
-            <div class="kpi-target">Potential licensing partner</div>
-        </div>
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-blue); flex:1;">
-            <div class="kpi-label">🎓 Chicago State Univ.</div>
-            <div class="kpi-value">22</div>
-            <div class="kpi-sub neutral">14-user cohort spike in Jan 2026</div>
-            <div class="kpi-target">HBCU partner</div>
-        </div>
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-green); flex:1;">
-            <div class="kpi-label">🤝 100 Black Men</div>
-            <div class="kpi-value">9</div>
-            <div class="kpi-sub neutral">Consistent community pipeline</div>
-            <div class="kpi-target">Community org partner</div>
-        </div>
-    </div>
-
-    <div class="kpi-row">
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-amber); flex:1;">
-            <div class="kpi-label">🎓 Xavier University</div>
-            <div class="kpi-value">5</div>
-            <div class="kpi-sub neutral">3 in most recent week</div>
-            <div class="kpi-target">HBCU partner</div>
-        </div>
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-purple); flex:1;">
-            <div class="kpi-label">🏢 Other / Unaffiliated</div>
-            <div class="kpi-value">57</div>
-            <div class="kpi-sub neutral">Organic sign-ups (Q1 2026)</div>
-            <div class="kpi-target">No institutional affiliation</div>
-        </div>
-        <div class="kpi-card" style="border-left: 4px solid #ccc; flex:1;">
-            <div class="kpi-label">📊 Institutional Rate</div>
-            <div class="kpi-value">49%</div>
-            <div class="kpi-sub up">65 of 134 org selections (Q1)</div>
-            <div class="kpi-target">Org-affiliated vs. organic</div>
-        </div>
-    </div>
-
-    <div class="chart-grid">
-        <div class="chart-card">
-            <h3>Total Selections by Organization</h3>
-            <canvas id="uaOrgBar" height="220"></canvas>
-            <div class="chart-source">Amplitude · Organization Selections (13-week)</div>
-        </div>
-        <div class="chart-card">
-            <h3>Weekly Org Selection Trend</h3>
-            <canvas id="uaOrgTrend" height="220"></canvas>
-            <div class="chart-source">Amplitude · Weekly org selections</div>
-        </div>
-    </div>
-
-    <div class="insight-box" style="background: linear-gradient(135deg, #f0f4ff, #e8eeff); border-left-color: var(--p3-blue);">
-        <strong>🏫 Organization Insight:</strong> <strong>Chicago Public Schools (CPS)</strong> is the fastest-growing partner with <strong>29 selections in Q1 2026</strong> — including a 12-selection surge in the most recent week. CPS now leads Chicago State (22) and could become P3's first institutional licensing deal. <strong>100 Black Men</strong> (9) and <strong>Xavier Univ.</strong> (5) are steady community/HBCU pipelines. Notably, <strong>49% of all Q1 org selections</strong> come from named institutions — a strong signal that partner-driven onboarding is working.
-    </div>
-
-    <div class="insight-box" style="background: linear-gradient(135deg, #fff8f0, #ffeed8); border-left-color: var(--p3-amber);">
-        <strong>🎯 Strategic Takeaway:</strong> Three patterns stand out: (1) CPS and Chicago State show <strong>burst enrollment</strong> — likely cohort-driven events that P3 should schedule proactively; (2) 100 Black Men provides a <strong>steady community pipeline</strong> ideal for pairing campaigns; (3) Xavier's most recent week (3 new selections) could signal a new cohort opportunity. For the Partner Dashboard Ph1 launch in May, these top organizations should be the initial pilot partners with analytics access.
-    </div>
-
-    <!-- ══════════════════════════════════════════════ -->
-    <!-- ── SECTION 3: TOP 5 MENTEE PARTNERS          ── -->
-    <!-- ══════════════════════════════════════════════ -->
-    <div class="section-title" style="margin-top:28px;">Top 5 Mentee Partners</div>
-    <div style="font-size:12px; color:#888; margin:-10px 0 16px 0;">Organizations ranked by active users — with demographic breakdowns per partner (Amplitude live data)</div>
-
-    <!-- Mentee Partner KPI Cards -->
-    <div class="kpi-row">
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-crimson); flex:1;">
-            <div class="kpi-label">🏫 Chicago Public Schools</div>
-            <div class="kpi-value">34 active users</div>
-            <div class="kpi-sub neutral">Top need: Career guidance (23)</div>
-        </div>
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-blue); flex:1;">
-            <div class="kpi-label">🎓 Chicago State Univ.</div>
-            <div class="kpi-value">26 active users</div>
-            <div class="kpi-sub neutral">Top need: Career guidance (22)</div>
-        </div>
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-green); flex:1;">
-            <div class="kpi-label">🤝 100 Black Men</div>
-            <div class="kpi-value">40 active users</div>
-            <div class="kpi-sub neutral">Top need: Career guidance (19)</div>
-        </div>
-    </div>
-    <div class="kpi-row">
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-amber); flex:1;">
-            <div class="kpi-label">🎓 Xavier University</div>
-            <div class="kpi-value">46 active users</div>
-            <div class="kpi-sub neutral">Top need: Networking (37)</div>
-        </div>
-        <div class="kpi-card" style="border-left: 4px solid var(--p3-purple); flex:1;">
-            <div class="kpi-label">🏢 Other / Unaffiliated</div>
-            <div class="kpi-value">242 active users</div>
-            <div class="kpi-sub neutral">Top need: Career guidance (184)</div>
-        </div>
-    </div>
-
-    <div class="chart-grid">
-        <div class="chart-card">
-            <h3>Mentees by Partner Organization</h3>
-            <canvas id="uaMenteePartnerBar" height="220"></canvas>
-            <div class="chart-source">Amplitude · Users by Organization</div>
-        </div>
-        <div class="chart-card">
-            <h3>Education Level by Partner</h3>
-            <canvas id="uaMenteePartnerEdu" height="220"></canvas>
-            <div class="chart-source">Amplitude · Education × Organization</div>
-        </div>
-    </div>
-
-    <div class="chart-grid">
-        <div class="chart-card">
-            <h3>Top Guidance Sought by Partner</h3>
-            <canvas id="uaMenteePartnerSeeking" height="220"></canvas>
-            <div class="chart-source">Amplitude · Needs × Organization</div>
-        </div>
-        <div class="chart-card">
-            <h3>Meet Frequency by Partner</h3>
-            <canvas id="uaMenteePartnerMeet" height="220"></canvas>
-            <div class="chart-source">Amplitude · Frequency × Organization</div>
-        </div>
-    </div>
-
-    <div class="insight-box" style="background: linear-gradient(135deg, #faf0f8, #f5e8f3); border-left-color: var(--p3-purple);">
-        <strong>👥 Mentee Partner Insight:</strong> <strong>Other/Unaffiliated users (242)</strong> remain the largest segment, representing organic growth. Among institutional partners, <strong>Xavier leads with 46 active users</strong>, followed by 100 Black Men (40), CPS (34), and Chicago State (26). CPS users predominantly seek career guidance (23), while Xavier users prioritize networking (37). These 4 institutional partners account for <strong>146 active users (38%)</strong> of the affiliated base — validation that partner-driven growth is a key channel for P3.
-    </div>
-
-    <div class="insight-box" style="background: linear-gradient(135deg, #f8faf0, #f0f7e8); border-left-color: var(--p3-green);">
-        <strong>📈 Partner Growth Opportunity:</strong> The 242 users in the "Other/Unaffiliated" bucket represent <strong>organic sign-ups without institutional ties</strong> — the largest segment. Mining this group for institution affiliation could reveal hidden partner opportunities. The education data shows a surprising pattern: <strong>Doctorate/PhD is the top education level across most orgs</strong>, including Xavier (27) and 100 Black Men (11). CPS has the most users without education data set (24), suggesting a profile-completion campaign opportunity for that partner.
-    </div>
-
-    <div class="insight-box" style="background:#f0f4ff; border-left-color: var(--p3-blue);">
-        <strong>🔗 Data Note:</strong> Demographics sourced from Amplitude user properties (MenteeProfileEducation, MenteeProfileNeeds, MenteeProfileFrequency, MentorProfileIndustry, MentorProfileCoachingStrengths, Organization). Leaderboards sourced from Amplitude events (QuestionAction, MentorshipAction). Video upload chart awaiting Retool R-1 query. Data refreshes weekly every Monday at 8 AM.
-    </div>
-
-    </div><!-- end tab-admin -->
-
-    <!-- ===== TAB: MILESTONE DATA [BETA] ===== -->
     <div id="tab-milestone" class="tab-panel">
 
     <!-- Beta Disclaimer -->
@@ -1042,24 +1819,26 @@
     const dauMentorWk = [7,4,3,7,7,3,1,6,10,16,5,8,7];
 
     new Chart(document.getElementById('dauChart'), {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: dauWeeks,
             datasets: [{
                 label: 'Mentees',
                 data: dauMenteeWk,
-                backgroundColor: CRIMSON,
-                borderRadius: 3
+                borderColor: CRIMSON,
+                backgroundColor: 'rgba(217,58,58,0.08)',
+                fill: true, tension: 0.3, borderWidth: 2.5, pointRadius: 2
             },{
                 label: 'Mentors',
                 data: dauMentorWk,
-                backgroundColor: BLUE,
-                borderRadius: 3
+                borderColor: BLUE,
+                backgroundColor: 'rgba(52,152,219,0.06)',
+                fill: true, tension: 0.3, borderWidth: 2, pointRadius: 2
             }]
         },
         options: {
             plugins: { legend: { position: 'bottom' } },
-            scales: { y: { beginAtZero: true, stacked: true, grid: { color: '#f0f0f0' } }, x: { stacked: true, grid: { display: false }, ticks: { font: { size: 9 } } } }
+            scales: { y: { beginAtZero: true, grid: { color: '#f0f0f0' } }, x: { grid: { display: false }, ticks: { font: { size: 9 } } } }
         }
     });
 
@@ -1498,7 +2277,7 @@ function buildUserAnalyticsCharts() {
         }
     });
 
-    // ── 12. Education Level by Partner (stacked bar) ──
+    // ── 12. Education Goal by Partner (stacked bar) ──
     new Chart(document.getElementById('uaMenteePartnerEdu'), {
         type: 'bar',
         data: {
@@ -1827,6 +2606,520 @@ function buildMilestoneCharts() {
 }
 
 buildMilestoneCharts();
+
+
+// ═══════════════════════════════════════════════════════════
+// V2 FEATURES (Fixed — uses display:none instead of max-height)
+// ═══════════════════════════════════════════════════════════
+
+// ── 1. Collapsible Sections ──
+(function initCollapsible() {
+    document.querySelectorAll('.section-title').forEach(titleEl => {
+        const header = document.createElement('div');
+        header.className = 'section-header';
+        header.innerHTML = '<span class="collapse-icon">▼</span>';
+
+        titleEl.parentNode.insertBefore(header, titleEl);
+        header.prepend(titleEl);
+
+        // Collect all sibling elements until next section-header or end of tab-panel
+        const body = document.createElement('div');
+        body.className = 'section-body';
+        header.after(body);
+
+        let next = body.nextElementSibling;
+        while (next && !next.classList.contains('section-header') &&
+               !next.classList.contains('section-title') &&
+               !next.classList.contains('footer') &&
+               next.tagName !== 'SCRIPT') {
+            const move = next;
+            next = next.nextElementSibling;
+            body.appendChild(move);
+        }
+
+        // Toggle on click — simple display:none toggle, no max-height
+        header.addEventListener('click', () => {
+            const isCollapsing = !header.classList.contains('collapsed');
+            header.classList.toggle('collapsed');
+            body.classList.toggle('collapsed');
+        });
+    });
+})();
+
+// ── 2. Search / Quick-Find ──
+function searchCharts(query) {
+    const q = query.toLowerCase().trim();
+    const clearBtn = document.getElementById('searchClear');
+    const noResults = document.getElementById('searchNoResults');
+    const querySpan = document.getElementById('searchQuery');
+
+    clearBtn.style.display = q ? 'block' : 'none';
+
+    // If empty query, restore everything
+    if (!q) {
+        document.querySelectorAll('.search-hidden').forEach(el => el.classList.remove('search-hidden'));
+        document.querySelectorAll('.search-highlight').forEach(el => el.classList.remove('search-highlight'));
+        // Restore collapsed state that search may have forced open
+        document.querySelectorAll('.section-body.search-forced-open').forEach(b => {
+            b.classList.add('collapsed');
+            b.classList.remove('search-forced-open');
+            const hdr = b.previousElementSibling;
+            if (hdr && hdr.classList.contains('section-header')) hdr.classList.add('collapsed');
+        });
+        noResults.style.display = 'none';
+        return;
+    }
+
+    let found = 0;
+
+    // Search across ALL tabs — mark individual items
+    document.querySelectorAll('.tab-panel').forEach(tab => {
+        tab.querySelectorAll('.chart-card').forEach(card => {
+            const h3 = card.querySelector('h3');
+            const text = (h3 ? h3.textContent : '').toLowerCase() + ' ' +
+                         (card.querySelector('.chart-source') ? card.querySelector('.chart-source').textContent : '').toLowerCase();
+            if (text.includes(q)) {
+                card.classList.remove('search-hidden');
+                card.classList.add('search-highlight');
+                found++;
+            } else {
+                card.classList.add('search-hidden');
+                card.classList.remove('search-highlight');
+            }
+        });
+
+        tab.querySelectorAll('.kpi-card').forEach(card => {
+            const label = (card.querySelector('.kpi-label') || {}).textContent || '';
+            if (label.toLowerCase().includes(q)) {
+                card.classList.remove('search-hidden');
+                found++;
+            } else {
+                card.classList.add('search-hidden');
+            }
+        });
+
+        tab.querySelectorAll('.insight-box').forEach(box => {
+            if (box.textContent.toLowerCase().includes(q)) {
+                box.classList.remove('search-hidden');
+                found++;
+            } else {
+                box.classList.add('search-hidden');
+            }
+        });
+    });
+
+    // Now handle section visibility: hide sections with zero visible children,
+    // force-open sections that have matches
+    document.querySelectorAll('.section-body').forEach(body => {
+        const header = body.previousElementSibling;
+        if (!header || !header.classList.contains('section-header')) return;
+
+        const hasVisible = body.querySelector('.chart-card:not(.search-hidden), .kpi-card:not(.search-hidden), .insight-box:not(.search-hidden)');
+        if (hasVisible) {
+            header.classList.remove('search-hidden');
+            // Force section open so results are visible
+            if (body.classList.contains('collapsed')) {
+                body.classList.remove('collapsed');
+                header.classList.remove('collapsed');
+                body.classList.add('search-forced-open');
+            }
+        } else {
+            header.classList.add('search-hidden');
+            body.classList.add('search-hidden');
+        }
+    });
+
+    querySpan.textContent = query;
+    noResults.style.display = found === 0 ? 'block' : 'none';
+}
+
+function clearSearch() {
+    const input = document.getElementById('dashSearch');
+    input.value = '';
+    searchCharts('');
+    input.focus();
+}
+
+// Keyboard shortcut: Ctrl/Cmd+K to focus search
+document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('dashSearch').focus();
+    }
+    if (e.key === 'Escape') {
+        clearSearch();
+    }
+});
+
+// ── 3. Dark Mode Toggle ──
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+
+    // Toggle sun/moon icons
+    document.getElementById('themeIconMoon').style.display = isDark ? 'none' : 'block';
+    document.getElementById('themeIconSun').style.display = isDark ? 'block' : 'none';
+
+    // Persist preference
+    try { localStorage.setItem('p3-dark-mode', isDark ? '1' : '0'); } catch(e) {}
+
+    // Update Chart.js text colors
+    const textColor = isDark ? '#ccc' : '#666';
+    const gridColor = isDark ? 'rgba(255,255,255,0.06)' : '#f0f0f0';
+    Chart.helpers.each(Chart.instances, (chart) => {
+        if (chart.options.scales) {
+            Object.values(chart.options.scales).forEach(scale => {
+                if (scale.ticks) scale.ticks.color = textColor;
+                if (scale.grid) scale.grid.color = gridColor;
+            });
+        }
+        if (chart.options.plugins && chart.options.plugins.legend && chart.options.plugins.legend.labels) {
+            chart.options.plugins.legend.labels.color = textColor;
+        }
+        chart.update('none');
+    });
+}
+
+// Restore dark mode on load
+(function() {
+    try {
+        if (localStorage.getItem('p3-dark-mode') === '1') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeIconMoon').style.display = 'none';
+            document.getElementById('themeIconSun').style.display = 'block';
+        }
+    } catch(e) {}
+})();
+
+
+
+
+// ══════════════════════════════════════════════════════
+// V2-R2: FEATURE 2 — KPI Sparklines
+// ══════════════════════════════════════════════════════
+(function initSparklines() {
+    document.querySelectorAll('.kpi-sparkline').forEach(container => {
+        const values = container.dataset.values.split(',').map(Number);
+        const color = container.dataset.color || '#D93A3A';
+        const w = 80, h = 24, pad = 2;
+
+        if (values.length < 2) return;
+
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const range = max - min || 1;
+
+        const points = values.map((v, i) => {
+            const x = pad + (i / (values.length - 1)) * (w - 2 * pad);
+            const y = pad + (1 - (v - min) / range) * (h - 2 * pad);
+            return `${x.toFixed(1)},${y.toFixed(1)}`;
+        });
+
+        // Determine trend: compare last value to average of first half
+        const firstHalf = values.slice(0, Math.floor(values.length / 2));
+        const firstAvg = firstHalf.reduce((a, b) => a + b, 0) / firstHalf.length;
+        const lastVal = values[values.length - 1];
+        const trend = lastVal > firstAvg * 1.05 ? 'up' : lastVal < firstAvg * 0.95 ? 'down' : 'flat';
+
+        // Gradient fill
+        const fillPoints = points.join(' ') + ` ${w - pad},${h - pad} ${pad},${h - pad}`;
+
+        const svg = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="spark-${color.replace('#','')}" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="${color}" stop-opacity="0.15"/>
+                    <stop offset="100%" stop-color="${color}" stop-opacity="0.02"/>
+                </linearGradient>
+            </defs>
+            <polygon points="${fillPoints}" fill="url(#spark-${color.replace('#','')})" />
+            <polyline points="${points.join(' ')}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="${points[points.length-1].split(',')[0]}" cy="${points[points.length-1].split(',')[1]}" r="2" fill="${color}" />
+        </svg>`;
+
+        container.innerHTML = svg;
+    });
+})();
+
+// ══════════════════════════════════════════════════════
+// V2-R2: FEATURE 4 — Industry Benchmarks
+// ══════════════════════════════════════════════════════
+let benchmarksVisible = false;
+
+// EdTech / nonprofit mentoring industry benchmarks
+const BENCHMARKS = {
+    wauChart: {
+        label: 'EdTech Avg WAU',
+        // For a 1000-user EdTech platform, ~5-8% WAU is typical
+        getValues: (labels) => labels.map(() => 55)  // ~5.5% of 1000 users
+    },
+    dauChart: {
+        label: 'EdTech Avg DAU',
+        getValues: (labels) => labels.map(() => 25)  // ~2.5% of 1000 users
+    },
+    menteeRetentionChart: {
+        label: 'EdTech Avg Retention',
+        getValues: (labels) => [95, 32, 24, 18, 14, 12, 8]
+    }
+};
+
+function toggleBenchmarks() {
+    benchmarksVisible = !benchmarksVisible;
+    const btn = document.getElementById('benchmarkToggle');
+    btn.classList.toggle('on', benchmarksVisible);
+
+    Chart.helpers.each(Chart.instances, (chart) => {
+        const canvasId = chart.canvas.id;
+        if (!BENCHMARKS[canvasId]) return;
+
+        const bm = BENCHMARKS[canvasId];
+        const existingIdx = chart.data.datasets.findIndex(ds => ds._isBenchmark);
+
+        if (benchmarksVisible && existingIdx === -1) {
+            // Add benchmark dataset
+            const benchValues = bm.getValues(chart.data.labels);
+            chart.data.datasets.push({
+                label: bm.label,
+                data: benchValues.slice(0, chart.data.labels.length),
+                borderColor: '#aaa',
+                borderDash: [6, 3],
+                borderWidth: 1.5,
+                pointRadius: 0,
+                fill: false,
+                tension: 0,
+                _isBenchmark: true,
+                order: 999
+            });
+            chart.update('none');
+        } else if (!benchmarksVisible && existingIdx !== -1) {
+            // Remove benchmark dataset
+            chart.data.datasets.splice(existingIdx, 1);
+            chart.update('none');
+        }
+    });
+}
+
+
+
+    // ══════════════════════════════════════════════════════
+    // V2-R3: FEATURE 1 — Geography Charts
+    // ══════════════════════════════════════════════════════
+    const geoCityLabels = ['Chicago, IL', 'Baton Rouge, LA', 'New Orleans, LA', 'Atlanta, GA', 'Washington, DC', 'Houston, TX', 'Metairie, LA', 'Dallas, TX', 'Kenner, LA', 'New York, NY', 'Oklahoma City, OK', 'Miami, FL'];
+    const geoCityMentees = [136, 64, 58, 15, 13, 13, 11, 7, 8, 7, 7, 8];
+    const geoCityMentors = [36, 18, 10, 3, 3, 3, 2, 4, 4, 1, 0, 0];
+
+    new Chart(document.getElementById('geoCityChart'), {
+        type: 'bar',
+        data: {
+            labels: geoCityLabels,
+            datasets: [{
+                label: 'Mentees',
+                data: geoCityMentees,
+                backgroundColor: CRIMSON,
+                borderRadius: 3
+            },{
+                label: 'Mentors',
+                data: geoCityMentors,
+                backgroundColor: BLUE,
+                borderRadius: 3
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            plugins: { legend: { position: 'bottom' } },
+            scales: {
+                x: { stacked: true, grid: { color: '#f0f0f0' }, beginAtZero: true },
+                y: { stacked: true, grid: { display: false }, ticks: { font: { size: 10 } } }
+            }
+        }
+    });
+
+    const geoStateLabels = ['Illinois','Louisiana','Texas','Florida','Georgia','California','Maryland','New York','Missouri','New Jersey'];
+    const geoStateTotals = [235,211,71,44,42,40,35,34,19,19];
+    const geoStateMentees = [167,144,56,34,25,28,29,23,17,16];
+    const geoStateMentors = [40,37,9,3,11,5,5,8,1,2];
+
+    new Chart(document.getElementById('geoStateChart'), {
+        type: 'bar',
+        data: {
+            labels: geoStateLabels,
+            datasets: [{
+                label: 'Mentees',
+                data: geoStateMentees,
+                backgroundColor: CRIMSON,
+                borderRadius: 3
+            },{
+                label: 'Mentors',
+                data: geoStateMentors,
+                backgroundColor: BLUE,
+                borderRadius: 3
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            plugins: { legend: { position: 'bottom' } },
+            scales: {
+                x: { stacked: true, grid: { color: '#f0f0f0' }, beginAtZero: true },
+                y: { stacked: true, grid: { display: false }, ticks: { font: { size: 10 } } }
+            }
+        }
+    });
+
+
+    // ══════════════════════════════════════════════════════
+    // PARTNER COMPARISON
+    // ══════════════════════════════════════════════════════
+    const partnerOrgData = {
+        'CPS':   { name: 'Chicago Public Schools', users: 34, selections: 29, topNeed: 'Career Guidance (23)', topEdu: "Bachelor's (12)", topMeet: 'Once a Month (16)', type: 'K-12 District' },
+        'CSU':   { name: 'Chicago State University', users: 26, selections: 22, topNeed: 'Career Guidance (22)', topEdu: 'Doctorate/PhD (9)', topMeet: 'Twice a Month (8)', type: 'HBCU' },
+        '100BM': { name: '100 Black Men', users: 40, selections: 9, topNeed: 'Career Guidance (19)', topEdu: 'Doctorate/PhD (11)', topMeet: 'Once a Month (8)', type: 'Community Org' },
+        'XU':    { name: 'Xavier Univ. of Louisiana', users: 46, selections: 5, topNeed: 'Networking (37)', topEdu: 'Doctorate/PhD (27)', topMeet: 'Twice a Month (15)', type: 'HBCU' },
+        'P3':    { name: 'Pulse of Perseverance', users: 21, selections: 12, topNeed: 'Career Guidance', topEdu: 'Mixed', topMeet: 'Varies', type: 'Direct / Organic' },
+        'OTHER': { name: 'Other / Unaffiliated', users: 242, selections: 57, topNeed: 'Career Guidance (184)', topEdu: 'Doctorate/PhD (67)', topMeet: 'Once a Month (116)', type: 'Organic' }
+    };
+
+    function updatePartnerComparison() {
+        const a = document.getElementById('partnerA').value;
+        const b = document.getElementById('partnerB').value;
+
+        function fillPartnerCard(side, key) {
+            const fields = ['Users','Selections','Need','Edu','Meet','Type'];
+            if (!key || !partnerOrgData[key]) {
+                document.getElementById('partnerTitle' + side).textContent = '—';
+                fields.forEach(f => {
+                    document.getElementById('pc' + f + side).textContent = '—';
+                    document.getElementById('pc' + f + side).classList.remove('pc-winner');
+                });
+                return null;
+            }
+            const d = partnerOrgData[key];
+            document.getElementById('partnerTitle' + side).textContent = d.name;
+            document.getElementById('pcUsers' + side).textContent = d.users;
+            document.getElementById('pcSelections' + side).textContent = d.selections;
+            document.getElementById('pcNeed' + side).textContent = d.topNeed;
+            document.getElementById('pcEdu' + side).textContent = d.topEdu;
+            document.getElementById('pcMeet' + side).textContent = d.topMeet;
+            document.getElementById('pcType' + side).textContent = d.type;
+            return d;
+        }
+
+        const dA = fillPartnerCard('A', a);
+        const dB = fillPartnerCard('B', b);
+
+        // Highlight winners for numeric fields
+        if (dA && dB) {
+            const numFields = ['Users', 'Selections'];
+            const numKeys = ['users', 'selections'];
+            numFields.forEach((f, i) => {
+                const elA = document.getElementById('pc' + f + 'A');
+                const elB = document.getElementById('pc' + f + 'B');
+                elA.classList.remove('pc-winner');
+                elB.classList.remove('pc-winner');
+                if (dA[numKeys[i]] > dB[numKeys[i]]) elA.classList.add('pc-winner');
+                else if (dB[numKeys[i]] > dA[numKeys[i]]) elB.classList.add('pc-winner');
+            });
+        }
+    }
+
+    // ══════════════════════════════════════════════════════
+    // V2-R3: FEATURE 2 — Region Comparison
+    // ══════════════════════════════════════════════════════
+    const regionData = {
+                'AK': {name:'Alaska', total:1, mentee:1, mentor:0, topCity:''},
+                'AL': {name:'Alabama', total:14, mentee:9, mentor:1, topCity:''},
+                'AR': {name:'Arkansas', total:6, mentee:5, mentor:1, topCity:''},
+                'AZ': {name:'Arizona', total:4, mentee:3, mentor:1, topCity:''},
+                'CA': {name:'California', total:40, mentee:28, mentor:5, topCity:''},
+                'CO': {name:'Colorado', total:6, mentee:4, mentor:1, topCity:''},
+                'CT': {name:'Connecticut', total:2, mentee:2, mentor:0, topCity:''},
+                'DC': {name:'District of Columbia', total:18, mentee:13, mentor:3, topCity:'Washington, DC'},
+                'DE': {name:'Delaware', total:4, mentee:3, mentor:0, topCity:''},
+                'FL': {name:'Florida', total:44, mentee:34, mentor:3, topCity:'Miami, FL'},
+                'GA': {name:'Georgia', total:42, mentee:25, mentor:11, topCity:'Atlanta, GA'},
+                'HI': {name:'Hawaii', total:0, mentee:0, mentor:0, topCity:''},
+                'IA': {name:'Iowa', total:10, mentee:9, mentor:1, topCity:''},
+                'ID': {name:'Idaho', total:2, mentee:2, mentor:0, topCity:''},
+                'IL': {name:'Illinois', total:235, mentee:167, mentor:40, topCity:'Chicago, IL'},
+                'IN': {name:'Indiana', total:13, mentee:9, mentor:3, topCity:''},
+                'KS': {name:'Kansas', total:3, mentee:2, mentor:1, topCity:''},
+                'KY': {name:'Kentucky', total:4, mentee:2, mentor:1, topCity:''},
+                'LA': {name:'Louisiana', total:211, mentee:144, mentor:37, topCity:'Baton Rouge, LA'},
+                'MA': {name:'Massachusetts', total:8, mentee:7, mentor:1, topCity:''},
+                'MD': {name:'Maryland', total:35, mentee:29, mentor:5, topCity:''},
+                'ME': {name:'Maine', total:3, mentee:3, mentor:0, topCity:''},
+                'MI': {name:'Michigan', total:12, mentee:7, mentor:2, topCity:''},
+                'MN': {name:'Minnesota', total:6, mentee:6, mentor:0, topCity:''},
+                'MO': {name:'Missouri', total:19, mentee:17, mentor:1, topCity:''},
+                'MS': {name:'Mississippi', total:12, mentee:8, mentor:0, topCity:''},
+                'MT': {name:'Montana', total:0, mentee:0, mentor:0, topCity:''},
+                'NC': {name:'North Carolina', total:15, mentee:10, mentor:3, topCity:''},
+                'ND': {name:'North Dakota', total:0, mentee:0, mentor:0, topCity:''},
+                'NE': {name:'Nebraska', total:3, mentee:3, mentor:0, topCity:''},
+                'NH': {name:'New Hampshire', total:0, mentee:0, mentor:0, topCity:''},
+                'NJ': {name:'New Jersey', total:19, mentee:16, mentor:2, topCity:''},
+                'NM': {name:'New Mexico', total:2, mentee:2, mentor:0, topCity:''},
+                'NV': {name:'Nevada', total:3, mentee:3, mentor:0, topCity:''},
+                'NY': {name:'New York', total:34, mentee:23, mentor:8, topCity:'New York, NY'},
+                'OH': {name:'Ohio', total:14, mentee:11, mentor:0, topCity:''},
+                'OK': {name:'Oklahoma', total:15, mentee:13, mentor:0, topCity:'Oklahoma City, OK'},
+                'OR': {name:'Oregon', total:7, mentee:2, mentor:0, topCity:''},
+                'PA': {name:'Pennsylvania', total:14, mentee:14, mentor:0, topCity:''},
+                'RI': {name:'Rhode Island', total:0, mentee:0, mentor:0, topCity:''},
+                'SC': {name:'South Carolina', total:4, mentee:4, mentor:0, topCity:''},
+                'SD': {name:'South Dakota', total:0, mentee:0, mentor:0, topCity:''},
+                'TN': {name:'Tennessee', total:17, mentee:15, mentor:1, topCity:''},
+                'TX': {name:'Texas', total:71, mentee:56, mentor:9, topCity:'Houston, TX'},
+                'UT': {name:'Utah', total:4, mentee:4, mentor:0, topCity:''},
+                'VA': {name:'Virginia', total:19, mentee:12, mentor:5, topCity:''},
+                'VT': {name:'Vermont', total:0, mentee:0, mentor:0, topCity:''},
+                'WA': {name:'Washington', total:3, mentee:3, mentor:0, topCity:''},
+                'WI': {name:'Wisconsin', total:4, mentee:4, mentor:0, topCity:''},
+                'WV': {name:'West Virginia', total:0, mentee:0, mentor:0, topCity:''},
+                'WY': {name:'Wyoming', total:0, mentee:0, mentor:0, topCity:''},
+            };
+
+    function updateRegionComparison() {
+        const a = document.getElementById('regionA').value;
+        const b = document.getElementById('regionB').value;
+
+        function fillCard(side, abbr) {
+            if (!abbr || !regionData[abbr]) {
+                document.getElementById('regionTitle' + side).textContent = '—';
+                ['Total','Mentee','Mentor','Ratio','City'].forEach(k => {
+                    document.getElementById('rc' + k + side).textContent = '—';
+                    document.getElementById('rc' + k + side).classList.remove('winner');
+                });
+                return null;
+            }
+            const d = regionData[abbr];
+            document.getElementById('regionTitle' + side).textContent = d.name + ' (' + abbr + ')';
+            document.getElementById('rcTotal' + side).textContent = d.total;
+            document.getElementById('rcMentee' + side).textContent = d.mentee;
+            document.getElementById('rcMentor' + side).textContent = d.mentor;
+            document.getElementById('rcRatio' + side).textContent = d.mentor > 0 ? (d.mentee / d.mentor).toFixed(1) + ':1' : 'N/A';
+            document.getElementById('rcCity' + side).textContent = d.topCity || '—';
+            return d;
+        }
+
+        const dA = fillCard('A', a);
+        const dB = fillCard('B', b);
+
+        // Highlight winners
+        if (dA && dB) {
+            const fields = ['Total','Mentee','Mentor'];
+            const keys = ['total','mentee','mentor'];
+            fields.forEach((f, i) => {
+                const elA = document.getElementById('rc' + f + 'A');
+                const elB = document.getElementById('rc' + f + 'B');
+                elA.classList.remove('winner');
+                elB.classList.remove('winner');
+                if (dA[keys[i]] > dB[keys[i]]) elA.classList.add('winner');
+                else if (dB[keys[i]] > dA[keys[i]]) elB.classList.add('winner');
+            });
+        }
+    }
+
+
+
 </script>
 </body>
 </html>
